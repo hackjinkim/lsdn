@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LSDN — Laboratory of Social and Decision Neuroscience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF;
+    --tint:#F5F5F7;
+    --ink:#1D1D1F;
+    --ink-soft:#6E6E73;
+    --line:#D2D2D7;
+    --crimson:#8C2331;
+    --crimson-deep:#5A1620;
+    --font:'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#000000;
+      --tint:#1D1D1F;
+      --ink:#F5F5F7;
+      --ink-soft:#A1A1A6;
+      --line:#3A3A3C;
+      --crimson:#E8899C;
+      --crimson-deep:#D97285;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#000000;--tint:#1D1D1F;--ink:#F5F5F7;--ink-soft:#A1A1A6;--line:#3A3A3C;--crimson:#E8899C;--crimson-deep:#D97285;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;}
+  a{color:var(--crimson);}
+  h1,h2,h3,h4{font-family:var(--font);font-weight:600;margin:0;color:var(--ink);letter-spacing:-0.015em;}
+  p{margin:0 0 16px 0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:var(--font);}
+
+  /* ---------- i18n ---------- */
+  .i18n{display:none;}
+  html[data-lang="ko"] .i18n.ko{display:inline;}
+  html[data-lang="ko"] .i18n.ko.block{display:block;}
+  html[data-lang="en"] .i18n.en{display:inline;}
+  html[data-lang="en"] .i18n.en.block{display:block;}
+
+  /* ---------- Top bar ---------- */
+  .topbar-wrap{
+    position:sticky;top:0;z-index:30;
+    background:color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+  }
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 22px;border-bottom:1px solid var(--line);
+    gap:16px;min-height:52px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;}
+  .brand-mark{
+    height:120px;background:#fff;border-radius:9px;padding:6px 10px;box-sizing:border-box;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .brand-mark img{height:100%;width:auto;object-fit:contain;display:block;}
+  .brand-text{font-weight:600;font-size:14px;color:var(--ink);}
+
+  .topbar-right{display:flex;align-items:center;gap:14px;}
+
+  nav.primary{display:flex;gap:2px;}
+  .nav-item{position:relative;}
+  .nav-item > button{
+    all:unset;cursor:pointer;font-size:12px;font-weight:400;color:var(--ink-soft);padding:16px 14px;border-radius:0;letter-spacing:0;
+    transition:color .15s ease;
+  }
+  .nav-item > button:hover{background:none;color:var(--ink);}
+  .nav-item.current > button{color:var(--ink);font-weight:600;}
+  .dropdown{
+    display:none;position:absolute;top:calc(100% + 0px);left:50%;transform:translateX(-50%);
+    background:color-mix(in srgb, var(--paper) 90%, transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--line);border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,.14);min-width:230px;padding:8px;z-index:40;
+  }
+  .nav-item:hover .dropdown, .nav-item.open .dropdown{display:block;}
+  .dropdown button{
+    all:unset;display:block;width:100%;cursor:pointer;font-size:13px;color:var(--ink-soft);
+    padding:10px 14px;border-radius:8px;
+  }
+  .dropdown button:hover{background:var(--tint);color:var(--ink);}
+  .menu-btn{display:none;}
+  nav.mobile-drawer{display:none;}
+
+  .lang-toggle{
+    display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex-shrink:0;
+  }
+  .lang-toggle button{
+    all:unset;cursor:pointer;font-size:11.5px;padding:6px 13px;color:var(--ink-soft);font-weight:600;
+    transition:background .15s ease,color .15s ease;
+  }
+  .lang-toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
+
+  /* ---------- Banner ---------- */
+  .banner{
+    position:relative;overflow:hidden;
+    background:#000;
+    padding:120px 40px 100px;color:#fff;text-align:center;
+  }
+  .banner-bg{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  }
+  .banner-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.55) 100%);
+  }
+  .banner-inner{position:relative;max-width:760px;margin:0 auto;}
+  .banner h1{font-size:clamp(32px,5.4vw,56px);color:#fff;margin-bottom:16px;line-height:1.15;font-weight:600;letter-spacing:-0.02em;}
+  .banner p{color:rgba(255,255,255,.86);font-size:19px;max-width:52ch;margin:0 auto;line-height:1.5;}
+
+  /* ---------- Stage ---------- */
+  .stage{max-width:820px;margin:0 auto;padding:80px 40px 120px;}
+  .stage-section{display:none;}
+  .stage-section.active{display:block;}
+  .page-title{font-size:40px;margin-bottom:32px;font-weight:600;letter-spacing:-0.02em;display:block;}
+
+  .callout{
+    background:var(--tint);border-left:none;border-radius:18px;
+    padding:28px 30px;margin:32px 0;
+  }
+  .callout h3{font-size:15px;margin-bottom:10px;font-weight:600;}
+  .callout ul{margin-top:6px;}
+  .callout li{font-size:14px;color:var(--ink-soft);padding:9px 0;border-top:1px solid var(--line);}
+  .callout li:first-child{border-top:none;}
+  .callout li b{color:var(--ink);font-weight:500;}
+
+  .topics-grid{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 6px;}
+  .topics-grid span.tag{
+    font-size:13px;background:var(--tint);color:var(--ink);
+    padding:8px 16px;border-radius:999px;font-weight:500;
+  }
+
+  h2.section-h{font-size:28px;margin:64px 0 22px;padding-top:0;border-top:none;font-weight:600;letter-spacing:-0.015em;}
+  h2.section-h:first-of-type{margin-top:0;}
+
+  /* ---------- Research ---------- */
+  .study-list{margin-top:8px;display:flex;flex-direction:column;gap:10px;}
+  .study-row{
+    display:flex;gap:16px;padding:20px;border-top:none;align-items:flex-start;
+    background:var(--tint);border-radius:16px;transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .study-row:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
+  .study-num{color:var(--ink-soft);font-weight:600;font-size:13px;width:2.2em;flex-shrink:0;padding-top:10px;}
+  .study-row h4{font-size:15px;font-weight:600;margin-bottom:4px;letter-spacing:0;}
+  .study-icon{width:44px;height:44px;border-radius:12px;background:var(--paper);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .study-icon svg{width:24px;height:24px;stroke:var(--crimson);}
+  .study-body p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.6;}
+  .study-ref{display:inline-block;font-size:12px;color:var(--ink-soft);margin-top:8px;text-decoration:none;border-bottom:1px dotted var(--line);}
+  .study-ref:hover{color:var(--crimson);border-bottom-color:var(--crimson);}
+
+  /* ---------- Publications ---------- */
+  .pub-toolbar{display:flex;justify-content:flex-end;margin-bottom:14px;}
+  .pub-toolbar button{all:unset;cursor:pointer;font-size:13px;color:var(--crimson);font-weight:500;}
+  details.year{border-top:1px solid var(--line);}
+  details.year:last-of-type{border-bottom:1px solid var(--line);}
+  details.year summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:18px 4px;font-size:18px;font-weight:600;
+  }
+  details.year summary::-webkit-details-marker{display:none;}
+  details.year summary::before{content:"›";color:var(--ink-soft);font-size:18px;transition:transform .15s;}
+  details.year[open] summary::before{transform:rotate(90deg);}
+  details.year summary .count{margin-left:auto;font-size:12px;font-weight:400;color:var(--ink-soft);}
+  ul.pub-list{padding:0 0 20px 4px;}
+  ul.pub-list li{font-size:14px;color:var(--ink-soft);padding:12px 14px;border-top:1px solid var(--line);border-radius:10px;transition:background .15s ease;}
+  ul.pub-list li:hover{background:var(--tint);}
+  ul.pub-list li:first-child{border-top:none;}
+  ul.pub-list em{color:var(--ink);font-style:italic;}
+  a.pub-link{color:inherit;text-decoration:none;}
+  a.pub-link:hover{color:var(--crimson);text-decoration:underline;}
+  a.pub-link:hover em{color:var(--crimson);}
+  .pub-note{font-size:13px;color:var(--ink-soft);margin-top:24px;background:var(--tint);padding:18px 20px;border-radius:16px;}
+
+  /* ---------- People ---------- */
+  .director-card{display:flex;gap:22px;padding:28px;background:var(--tint);border-radius:20px;margin-bottom:10px;}
+  .director-photo{
+    width:80px;height:80px;border-radius:50%;background:var(--crimson);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:24px;
+    overflow:hidden;
+  }
+  .director-photo img{width:100%;height:100%;object-fit:cover;object-position:center 25%;}
+  .director-card h4{font-size:18px;margin-bottom:5px;font-weight:600;}
+  .director-card p{font-size:13.5px;color:var(--ink-soft);margin-bottom:3px;}
+
+  .member-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;}
+  .member-card{border:none;background:var(--tint);border-radius:18px;padding:18px 20px;transition:transform .2s ease, box-shadow .2s ease;}
+  .member-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
+  .member-card.has-photo{display:flex;gap:14px;align-items:flex-start;}
+  .member-photo{width:92px;height:92px;border-radius:50%;object-fit:cover;object-position:center 18%;flex-shrink:0;border:1px solid var(--line);}
+  .member-card h4{font-size:14.5px;margin-bottom:5px;font-weight:600;}
+  .member-card p{font-size:12.5px;color:var(--ink-soft);margin-bottom:3px;}
+  .member-card a{font-size:12.5px;}
+  .role-tag{color:var(--crimson);font-weight:500;}
+
+  .former-list{margin-top:6px;}
+  .former-row{padding:14px 4px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);}
+  .former-row:first-child{border-top:none;}
+  .former-row b{color:var(--ink);font-weight:500;}
+
+  /* ---------- News ---------- */
+  .event-row{display:flex;gap:16px;padding:14px 4px;border-top:1px solid var(--line);font-size:14.5px;}
+  .event-row:first-child{border-top:none;}
+  .event-date{color:var(--ink-soft);font-weight:500;width:15ch;flex-shrink:0;font-size:13px;}
+
+  footer.site-foot{
+    background:var(--tint);border-top:1px solid var(--line);padding:44px 40px;
+    font-size:12.5px;color:var(--ink-soft);text-align:center;
+  }
+  footer.site-foot a{color:var(--ink-soft);}
+  footer.site-foot p{margin:0 0 4px 0;}
+
+  /* ---------- Mobile ---------- */
+  @media (max-width:820px){
+    .topbar{padding:8px 18px;min-height:48px;}
+    .brand-mark{height:36px;padding:3px 6px;border-radius:5px;}
+    nav.primary{display:none;}
+    .menu-btn{display:block;all:unset;cursor:pointer;font-size:13px;border:1px solid var(--line);padding:7px 12px;border-radius:999px;}
+    nav.mobile-drawer{
+      display:flex;flex-direction:column;padding:0 18px;border-bottom:1px solid transparent;
+      max-height:0;overflow:hidden;opacity:0;
+      transition:max-height .32s ease, opacity .22s ease, padding .32s ease, border-color .32s ease;
+    }
+    nav.mobile-drawer.open{
+      max-height:600px;opacity:1;padding:6px 18px 16px;border-bottom-color:var(--line);
+    }
+    nav.mobile-drawer button{all:unset;cursor:pointer;padding:12px 4px;font-size:15px;color:var(--ink-soft);border-bottom:1px solid var(--line);}
+    nav.mobile-drawer button[data-current="true"]{color:var(--ink);font-weight:700;}
+    .banner{padding:72px 22px;}
+    .stage{padding:56px 18px 90px;}
+    .page-title{font-size:32px;}
+    .member-grid{grid-template-columns:1fr;}
+    .director-card{flex-direction:column;text-align:center;align-items:center;}
+    .member-card.has-photo{flex-direction:column;text-align:center;align-items:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar-wrap">
+<div class="topbar">
+  <a class="brand" data-target="home">
+    <span class="brand-mark" aria-hidden="true">
+      <img src="images/63e1eaa839c9657782425b1b3b063367.png" alt="LSDN logo">
+    </span>
+  </a>
+  <nav class="primary" id="primaryNav">
+    <div class="nav-item current">
+      <button data-target="home"><span class="i18n ko">홈</span><span class="i18n en">Home</span></button>
+    </div>
+    <div class="nav-item">
+      <button data-target="people"><span class="i18n ko">구성원</span><span class="i18n en">People</span></button>
+      <div class="dropdown">
+        <button data-target="people" data-anchor="p-director"><span class="i18n ko">디렉터</span><span class="i18n en">Director</span></button>
+        <button data-target="people" data-anchor="p-current"><span class="i18n ko">현재 구성원</span><span class="i18n en">Current Members</span></button>
+        <button data-target="people" data-anchor="p-former"><span class="i18n ko">졸업생</span><span class="i18n en">Former Members</span></button>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button data-target="research"><span class="i18n ko">연구</span><span class="i18n en">Research</span></button>
+      <div class="dropdown">
+        <button data-target="research" data-anchor="r-who"><span class="i18n ko">우리는 누구인가</span><span class="i18n en">Who We Are</span></button>
+        <button data-target="research" data-anchor="r-studies"><span class="i18n ko">주요 연구</span><span class="i18n en">Selected Studies</span></button>
+      </div>
+    </div>
+    <div class="nav-item"><button data-target="publications"><span class="i18n ko">논문</span><span class="i18n en">Publications</span></button></div>
+    <div class="nav-item"><button data-target="news"><span class="i18n ko">소식</span><span class="i18n en">News &amp; Updates</span></button></div>
+  </nav>
+  <div class="topbar-right">
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button data-lang="ko" aria-pressed="true">KO</button>
+      <button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="menu-btn" id="menuToggle" aria-expanded="false">Menu</button>
+  </div>
+</div>
+<nav class="mobile-drawer" id="mobileDrawer"></nav>
+</div>
+
+<div class="banner">
+  <img class="banner-bg" src="images/f3456f6fe591470c434c99c157c2d7ba.jpg" alt="" aria-hidden="true">
+  <div class="banner-scrim"></div>
+  <div class="banner-inner">
+    <h1><span class="i18n ko block">사회적 판단과 의사결정의 신경 기제를 밝힙니다</span><span class="i18n en block">Laboratory of Social and Decision Neuroscience</span></h1>
+    <p>
+      <span class="i18n ko">고려대학교 심리학부 · 김학진 교수 연구실 — 공감, 이타행동, 공정성, 사회비교 등 사회적 판단과 의사결정의 신경 기제를 fMRI로 연구합니다.</span>
+      <span class="i18n en">School of Psychology, Korea University — Directed by Prof. Hackjin Kim. We study the neural mechanisms of empathy, altruism, fairness, and social comparison using fMRI.</span>
+    </p>
+  </div>
+</div>
+
+<main class="stage" id="stage">
+
+  <!-- ===================== HOME ===================== -->
+  <section class="stage-section active" id="sec-home" data-section="home">
+    <h2 style="font-size:22px;margin-bottom:14px;">
+      <span class="i18n ko">LSDN에 오신 것을 환영합니다</span>
+      <span class="i18n en">Welcome to LSDN</span>
+    </h2>
+    <p>
+      <span class="i18n ko">The Laboratory of Social and Decision Neuroscience는 고려대학교 심리학부 김학진 교수가 이끄는 연구실입니다. 기능적 뇌영상(fMRI)을 중심으로 공감, 이타행동, 첫인상, 공정성, 사회비교, 마음이론, 사회적 동조와 같은 정서적·사회적 정보가 뇌에서 어떻게 의사결정으로 이어지는지를 탐구합니다.</span>
+      <span class="i18n en">The Laboratory of Social and Decision Neuroscience is directed by Prof. Hackjin Kim at the School of Psychology, Korea University. Using functional neuroimaging (fMRI) as our primary tool, we investigate how emotional and social information — empathy, altruism, first impressions, fairness, social comparison, theory of mind, and social conformity — shapes decision-making in the brain.</span>
+    </p>
+    <p>
+      <span class="i18n ko">연구 질문에 답하기 위해 fMRI를 중심으로, EEG·ERP·TMS·아이트래킹 등 다양한 방법론을 협력 연구를 통해 함께 활용하고 있습니다.</span>
+      <span class="i18n en">Alongside fMRI, we collaborate with other groups to apply EEG, ERPs, TMS, and eye-tracking to address our research questions.</span>
+    </p>
+
+    <div class="topics-grid">
+      <span class="tag"><span class="i18n ko">공감</span><span class="i18n en">Empathy</span></span>
+      <span class="tag"><span class="i18n ko">이타행동</span><span class="i18n en">Altruism</span></span>
+      <span class="tag"><span class="i18n ko">첫인상</span><span class="i18n en">First impression</span></span>
+      <span class="tag"><span class="i18n ko">공정성</span><span class="i18n en">Fairness</span></span>
+      <span class="tag"><span class="i18n ko">사회비교</span><span class="i18n en">Social comparison</span></span>
+      <span class="tag"><span class="i18n ko">마음이론</span><span class="i18n en">Theory of mind</span></span>
+      <span class="tag"><span class="i18n ko">사회적 동조</span><span class="i18n en">Social conformity</span></span>
+      <span class="tag"><span class="i18n ko">내수용감각</span><span class="i18n en">Interoception</span></span>
+    </div>
+
+    <div class="callout">
+      <h3><span class="i18n ko">최근 논문</span><span class="i18n en">Recent Publications</span></h3>
+      <ul>
+        <li><b>2026</b> — Cardiac Dynamics During Social Evaluative Feedback. <em>Biological Psychology</em></li>
+        <li><b>2025</b> — Neural Processes Linking Interoception to Moral Preferences Aligned with Group Consensus. <em>Journal of Neuroscience</em></li>
+        <li><b>2025</b> — Neural signatures of socially shaped self-worth: A meta-analysis. <em>NeuroImage</em></li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <h3><span class="i18n ko">지난 행사</span><span class="i18n en">Previous Events</span></h3>
+      <ul>
+        <li><b>2017.09.15</b> — Decision Neuroscience Symposium</li>
+        <li><b>2016.11.04–11.06</b> — 2016 ICCN (Hangzhou)</li>
+        <li><b>2016.09.08–09.10</b> — 2016 Flux conference</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== RESEARCH ===================== -->
+  <section class="stage-section" id="sec-research" data-section="research">
+    <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">연구</p>
+    <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">Research</p>
+    <h1 class="page-title"><span class="i18n ko">연구 소개</span><span class="i18n en">Research</span></h1>
+
+    <h2 class="section-h" id="r-who"><span class="i18n ko">우리는 누구인가</span><span class="i18n en">Who We Are</span></h2>
+    <p>
+      <span class="i18n ko">Laboratory of Social and Decision Neuroscience(LSDN)는 고려대학교 심리학부 소속의 사회 및 의사결정 신경과학 연구실로, 김학진 교수(Ph.D.)가 디렉터를 맡고 있습니다.</span>
+      <span class="i18n en">The Laboratory of Social and Decision Neuroscience (LSDN) is a social and decision neuroscience research group in the School of Psychology at Korea University, directed by Prof. Hackjin Kim, Ph.D.</span>
+    </p>
+
+    <h2 class="section-h"><span class="i18n ko">우리가 하는 일</span><span class="i18n en">What We Do</span></h2>
+    <p>
+      <span class="i18n ko">우리 연구실은 사회적·정서적·경제적 행동을 이끄는 의사결정의 심리적·신경적 메커니즘을 밝히는 것을 목표로 합니다.</span>
+      <span class="i18n en">Our research aims to uncover the psychological and neural mechanisms of decision-making that underlie social, emotional, and economic behavior.</span>
+    </p>
+    <p>
+      <span class="i18n ko">보다 구체적으로는 표정 지각, 선호 판단, 공감, 첫인상, 공정성 지각, 사회비교, 사회적 동조, 리더십과 위계, 내수용감각과 심장 생리 신호, 윤리적 소비, 이타적 행동에 이르기까지, 인간의 사회성을 이루는 다양한 물음에 답을 찾아가고 있습니다.</span>
+      <span class="i18n en">More specifically, we pursue answers to a wide range of questions that make up human social life — facial expression perception, preference judgment, empathy, first impressions, fairness perception, social comparison, social conformity, leadership and hierarchy, interoception and cardiac physiology, ethical consumption, and altruistic behavior.</span>
+    </p>
+    <p>
+      <span class="i18n ko">이를 위해 기능적 자기공명영상(fMRI)을 핵심 도구로 삼고 있으며, 국내외 연구진과의 협업을 통해 뇌파(EEG), 사건관련전위(ERP), 경두개자기자극(TMS), 아이트래킹, 심박 생리 지표 등 다양한 방법론을 함께 적용해 연구 질문에 다각도로 접근하고 있습니다.</span>
+      <span class="i18n en">To address these questions, we rely primarily on functional magnetic resonance imaging (fMRI), and, in collaboration with research groups in Korea and abroad, we bring in complementary methods such as EEG, event-related potentials (ERPs), transcranial magnetic stimulation (TMS), eye-tracking, and cardiac physiological measures.</span>
+    </p>
+
+    <h2 class="section-h" id="r-studies"><span class="i18n ko">주요 연구</span><span class="i18n en">Selected Studies</span></h2>
+    <div class="study-list">
+      <div class="study-row">
+        <span class="study-num">01</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5"/><circle cx="17" cy="15" r="3"/><path d="M12.5 11.5L14.5 13.5"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Mechanism of Preference Judgment</h4>
+          <p><span class="i18n ko">선호 판단 시 활성화되는 뇌 영역과 그 계산 과정을 fMRI로 규명합니다.</span><span class="i18n en">Identifies the brain regions and computations engaged when people form preference judgments, using fMRI.</span></p>
+          <a class="study-ref" href="https://www.pnas.org/doi/full/10.1073/pnas.0703101104" target="_blank" rel="noopener">Kim, Adolphs, O'Doherty &amp; Shimojo, <em>PNAS</em> (2007)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">02</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15c2-6 5-9 8-9s6 3 8 9"/><path d="M4 15h16"/><path d="M4 19h16"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Correlates of Common Currency</h4>
+          <p><span class="i18n ko">서로 다른 종류의 보상이 뇌에서 하나의 공통 가치 척도로 변환되는 신경 기제를 탐구합니다.</span><span class="i18n en">Explores how the brain converts qualitatively different rewards into a shared, common value scale.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/20732900/" target="_blank" rel="noopener">Kim, Shimojo &amp; O'Doherty, <em>Cerebral Cortex</em> (2011)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">03</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="4"/><path d="M6 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Basis of Decision Biases due to Facial Impression</h4>
+          <p><span class="i18n ko">얼굴에서 형성되는 첫인상이 이후 의사결정을 어떻게 편향시키는지 신경학적으로 설명합니다.</span><span class="i18n en">Explains the neural basis by which first impressions from faces bias later decisions.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/21942764/" target="_blank" rel="noopener">Kim, Choi &amp; Jang, <em>J. Cognitive Neuroscience</em> (2012)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">04</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8l7-5 7 5"/><path d="M3 14l2 5h4l-3-7z"/><path d="M21 14l-2 5h-4l3-7z"/></svg></div>
+        <div class="study-body">
+          <h4>Dissociable Neural Systems Underlying Risky Decisions for Self vs. Other</h4>
+          <p><span class="i18n ko">위험 감수 결정을 자신을 위해 내릴 때와 타인을 위해 내릴 때 관여하는 신경계가 서로 다름을 보입니다.</span><span class="i18n en">Shows that distinct neural systems support risky decisions made for oneself versus on behalf of others.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/23519016/" target="_blank" rel="noopener">Jung, Sul &amp; Kim, <em>Frontiers in Neuroscience</em> (2013)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">05</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M4 19c0-3 1.8-5 4-5s4 2 4 5"/><path d="M13 19c0-3 1.8-5 4-5s4 2 4 5"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Markers of Ability to Estimate Other's Preferences</h4>
+          <p><span class="i18n ko">타인의 선호를 정확히 추정하는 능력의 개인차를 예측하는 신경 표지자를 찾습니다.</span><span class="i18n en">Identifies neural markers that predict individual differences in the ability to accurately estimate others' preferences.</span></p>
+          <a class="study-ref" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3840299" target="_blank" rel="noopener">Kang, Lee, Sul &amp; Kim, <em>Frontiers in Human Neuroscience</em> (2013)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">06</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18l5-7 4 4 7-9"/><circle cx="4" cy="18" r="1.4"/><circle cx="9" cy="11" r="1.4"/><circle cx="13" cy="15" r="1.4"/><circle cx="20" cy="6" r="1.4"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Evidence for Individual and Cultural Variability of Social Comparison</h4>
+          <p><span class="i18n ko">사회비교 과정의 개인차와 문화차를 뒷받침하는 신경학적 증거를 제시합니다.</span><span class="i18n en">Provides neural evidence for individual and cultural variability in how people engage in social comparison.</span></p>
+          <a class="study-ref" href="https://www.jneurosci.org/content/33/41/16200" target="_blank" rel="noopener">Kang, Lee, Choi &amp; Kim, <em>J. Neuroscience</em> (2013)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">07</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6c0 5-8.8 10-8.8 10s-8.8-5-8.8-10a4.4 4.4 0 0 1 8.8-2 4.4 4.4 0 0 1 8.8 2z"/><path d="M4 12h3l1.5-3L11 15l1.5-5 1.5 3h3"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Processes Linking Interoception to Moral Preferences Aligned with Group Consensus</h4>
+          <p><span class="i18n ko">내수용감각(심장박동 인식)이 집단 합의에 부합하는 도덕적 선호로 이어지는 신경 과정을 밝힙니다.</span><span class="i18n en">Reveals the neural processes linking interoceptive (cardiac) awareness to moral preferences that align with group consensus.</span></p>
+          <a class="study-ref" href="https://www.jneurosci.org/content/45/23/e1114242025" target="_blank" rel="noopener">Kim &amp; Kim, <em>J. Neuroscience</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">08</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-7 4 14 2-9 2 5h5"/></svg></div>
+        <div class="study-body">
+          <h4>Cardiac Dynamics During Social Evaluative Feedback</h4>
+          <p><span class="i18n ko">사회적 평가 피드백을 받는 동안 나타나는 심박 반응의 개인 간 유사성을 분석합니다.</span><span class="i18n en">Analyzes intersubject similarity in cardiac responses while people receive social evaluative feedback.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/42070706/" target="_blank" rel="noopener">Kim, Lee, Lee, Kim &amp; Kim, <em>Biological Psychology</em> (2026)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">09</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+        <div class="study-body">
+          <h4>Neural Signatures of Socially Shaped Self-Worth: A Meta-Analysis</h4>
+          <p><span class="i18n ko">사회적 경험에 의해 형성되는 자기가치감의 신경 표지자를 메타분석으로 정리합니다.</span><span class="i18n en">A meta-analysis summarizing the neural signatures of self-worth as shaped by social experience.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/41290105/" target="_blank" rel="noopener">Shin, Kim, Ahn &amp; Kim, <em>NeuroImage</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">10</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5 5.5.8-4 4 1 5.5-5-2.6-5 2.6 1-5.5-4-4 5.5-.8z"/></svg></div>
+        <div class="study-body">
+          <h4>Navigating Leadership Dilemmas: Neural Bases of Strategic Conformity to Social Hierarchy</h4>
+          <p><span class="i18n ko">사회적 위계 속에서 리더십 딜레마에 전략적으로 순응하는 행동의 신경 기제를 다룹니다.</span><span class="i18n en">Examines the neural basis of strategic conformity to social hierarchy when navigating leadership dilemmas.</span></p>
+          <a class="study-ref" href="https://academic.oup.com/cercor/article/35/5/bhaf108/8152049" target="_blank" rel="noopener">Kim, Kim, Kim &amp; Kim, <em>Cerebral Cortex</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">11</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.6-9.5 9-9.5 9z"/></svg></div>
+        <div class="study-body">
+          <h4>Social Stress and Intuitive Prosocial Behavior: Effects on Self-Reward Processing</h4>
+          <p><span class="i18n ko">사회적 스트레스가 남성의 직관적 친사회 행동을 높이면서 자기보상 처리를 저해함을 보입니다.</span><span class="i18n en">Shows that social stress enhances intuitive prosocial behavior in males while disrupting self-reward processing.</span></p>
+          <a class="study-ref" href="https://pubmed.ncbi.nlm.nih.gov/40381894/" target="_blank" rel="noopener">Kim, Lee, Ahn &amp; Kim, <em>NeuroImage</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">12</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M8 8l-4 4 4 4"/><path d="M16 8l4 4-4 4"/><circle cx="12" cy="18" r="2.4"/></svg></div>
+        <div class="study-body">
+          <h4>Decomposing the Neurocomputational Mechanisms of Deontological Moral Preferences</h4>
+          <p><span class="i18n ko">의무론적 도덕 판단을 뒷받침하는 계산적·신경적 구성요소를 분해하여 밝힙니다.</span><span class="i18n en">Decomposes the computational and neural components underlying deontological moral judgments.</span></p>
+          <a class="study-ref" href="https://doi.org/10.1093/pnasnexus/pgag074" target="_blank" rel="noopener">Zoh, Kim, Kim, Crockett &amp; Ahn, <em>PNAS Nexus</em> (2026)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">13</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7 7"/><path d="M20 4l-7 7"/><path d="M12 11v9"/><circle cx="12" cy="4" r="2"/></svg></div>
+        <div class="study-body">
+          <h4>Impression Management in Distributive Justice</h4>
+          <p><span class="i18n ko">분배적 정의 상황에서 공정성과 사회적 인상관리가 어떻게 균형을 이루는지 살펴봅니다.</span><span class="i18n en">Examines how people balance fairness with impression management when making distributive-justice decisions.</span></p>
+          <a class="study-ref" href="https://doi.org/10.2139/ssrn.4891289" target="_blank" rel="noopener">Lim, Kim &amp; Kim, <em>Frontiers in Psychology</em> (2026)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">14</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v4"/><path d="M12 16v4"/><path d="M4 12h4"/><path d="M16 12h4"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="study-body">
+          <h4>Automatic Approach-Avoidance Tendencies in Social Contexts</h4>
+          <p><span class="i18n ko">사회적 자극에 대해 자동적으로 나타나는 접근-회피 경향성의 특성을 탐구합니다.</span><span class="i18n en">Explores the characteristics of automatic approach-avoidance tendencies elicited by social stimuli.</span></p>
+          <a class="study-ref" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1556034/full" target="_blank" rel="noopener">Kim, Lee, Chae, Lim, Kim &amp; Kim, <em>Frontiers in Psychology</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">15</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M9.5 10.5L14.5 8"/><path d="M9.5 13.5L14.5 15.5"/></svg></div>
+        <div class="study-body">
+          <h4>Social Observation and Prosocial Learning in Selfish vs. Prosocial People</h4>
+          <p><span class="i18n ko">타인의 관찰이 이기적 성향과 친사회적 성향의 사람들에게 각기 다르게 친사회적 학습에 영향을 준다는 것을 보입니다.</span><span class="i18n en">Shows that being observed by others differentially affects prosocial learning in selfish versus prosocial individuals.</span></p>
+          <a class="study-ref" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11860963/" target="_blank" rel="noopener">Kim, Kim &amp; Kim, <em>Frontiers in Psychology</em> (2025)</a>
+        </div>
+      </div>
+      <div class="study-row">
+        <span class="study-num">＋</span>
+        <div class="study-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="study-body">
+          <h4><span class="i18n ko">그 외 진행 중인 연구들</span><span class="i18n en">Other ongoing projects</span></h4>
+          <p><span class="i18n ko">위 주제들과 연계하여 다양한 후속 연구를 계속 진행하고 있습니다.</span><span class="i18n en">We continue to pursue a range of related follow-up studies alongside these projects.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PUBLICATIONS ===================== -->
+  <section class="stage-section" id="sec-publications" data-section="publications">
+    <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">논문</p>
+    <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">Publications</p>
+    <h1 class="page-title"><span class="i18n ko">LSDN 논문 목록</span><span class="i18n en">Articles from the LSDN lab</span></h1>
+    <div class="pub-toolbar"><button id="pubToggle"><span class="i18n ko">모두 펼치기</span><span class="i18n en">Expand all</span></button></div>
+
+    <details class="year" open><summary>2026<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/42070706/" target="_blank" rel="noopener">Kim, J., Lee, M., Lee, D., Kim, M., &amp; Kim, H. (2026). Cardiac Dynamics During Social Evaluative Feedback: Evidence from Intersubject Representational Similarity Analysis. <em>Biological Psychology</em>, 210, 109278.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/42425248/" target="_blank" rel="noopener">Moon, H†, Kim, J†, Kim, G., Kim, H., Kim, T., Hur, J-W. (2026). Neural correlates of early- and late-onset nonsuicidal self-injury. <em>Journal of Affective Disorders</em>, 413, 122238. (†co-first author)</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.1093/pnasnexus/pgag074" target="_blank" rel="noopener">Zoh, Y., Kim, S., Kim, H., Crockett, M. J., &amp; Ahn, W. Y. (2026). Decomposing the neurocomputational mechanisms of deontological moral preferences. <em>PNAS Nexus</em>, 5(4), pgag074.</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.2139/ssrn.4891289" target="_blank" rel="noopener">Lim, G., Kim, D., &amp; Kim, H. (2026). Impression management in distributive justice: balancing fairness and social perception. <em>Frontiers in Psychology</em>, 17, 1848060.</a></li>
+      </ul>
+    </details>
+    <details class="year" open><summary>2025<span class="count"><span class="i18n ko">10편</span><span class="i18n en">10 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/41290105/" target="_blank" rel="noopener">Shin, J., Kim, H., Ahn, J., &amp; Kim, H. (2025). Neural signatures of socially shaped self-worth: A meta-analysis. <em>NeuroImage</em>, 121612.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/20/1/nsaf051/8131468" target="_blank" rel="noopener">Kang, H., Kim, K. I., Kim, J., &amp; Kim, H. (2025). Neural representations in MPFC and insula encode individual differences in estimating others' preferences. <em>Social Cognitive And Affective Neuroscience</em>.</a></li>
+        <li>H Kim (2025). A Neuroscientific Exploration of Empathy. 횡단인문학 제20호.</li>
+        <li><a class="pub-link" href="https://royalsocietypublishing.org/rspb/article/292/2052/20251355/234598/Decision-making-preferences-for-intuition" target="_blank" rel="noopener">Grossmann, I., Rudnev, M., Dorfman, A., Atari, M., Barr, K., Bencherifa, A., ... &amp; Machery, E. (2025). Decision-making preferences for intuition, deliberation, friends or crowds. <em>Proceedings B</em>, 292(2052), 20251355.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1111/nous.12515" target="_blank" rel="noopener">Porter, B. et al. (2025). A puzzle about knowledge ascriptions. <em>Noûs</em>, 59(2), 392-408.</a></li>
+        <li><a class="pub-link" href="https://www.jneurosci.org/content/45/23/e1114242025" target="_blank" rel="noopener">Kim, J., &amp; Kim, H. (2025). Neural Processes Linking Interoception to Moral Preferences Aligned with Group Consensus. <em>Journal of Neuroscience</em>, 45(23).</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/40381894/" target="_blank" rel="noopener">Kim, K. I., Lee, J. H., Ahn, W. Y., &amp; Kim, H. (2025). Social stress enhances intuitive prosocial behavior in males while disrupting self-reward processing. <em>NeuroImage</em>, 121273.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/cercor/article/35/5/bhaf108/8152049" target="_blank" rel="noopener">Kim, D., Kim, J., Kim, K. I., &amp; Kim, H. (2025). Navigating leadership dilemmas. <em>Cerebral Cortex</em>, 35(5).</a></li>
+        <li><a class="pub-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1556034/full" target="_blank" rel="noopener">Kim, J., Lee, M., Chae, J., Lim, G., Kim, M., &amp; Kim, H. (2025). Exploring automatic approach-avoidance tendencies. <em>Frontiers in Psychology</em>, 16, 1556034.</a></li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11860963/" target="_blank" rel="noopener">Kim, Y., Kim, K. I., &amp; Kim, H. (2025). Social Observation Differentially Affects Prosocial Learning of Selfish and Prosocial People. <em>Frontiers in Psychology</em>, 16, 1440302.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2024<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/39315034/" target="_blank" rel="noopener">Kang, H., Kim, J., Kim, D., &amp; Kim, H. (2024). Social status mediates the propagation of unfairness. <em>Frontiers in Psychology</em>, 15, 1253831.</a></li>
+        <li><a class="pub-link" href="https://journals.plos.org/digitalhealth/article?id=10.1371%2Fjournal.pdig.0000595" target="_blank" rel="noopener">Park, S. E. et al. (2024). Digital assessment of cognitive-affective biases related to mental health. <em>PLOS Digital Health</em>, 3(8), e0000595.</a></li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41598-024-70225-9" target="_blank" rel="noopener">Kim, M., Kim, K. I., &amp; Kim, H. (2024). Self-interest overrides rank-reversal aversion in resource distribution. <em>Scientific Reports</em>, 14(1), 19704.</a></li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41467-024-50294-0" target="_blank" rel="noopener">Rudnev, M. et al. (2024). Dimensions of wisdom perception across twelve countries on five continents. <em>Nature Communications</em>, 15(1), 6375.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1111/nous.12515" target="_blank" rel="noopener">Porter, B. et al. (2024). A puzzle about knowledge ascriptions. <em>Noûs</em>.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2023<span class="count"><span class="i18n ko">3편</span><span class="i18n en">3 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.jneurosci.org/content/43/36/6330" target="_blank" rel="noopener">Kim, D., Kim, J., &amp; Kim, H. (2023). Distinctive roles of medial prefrontal cortex subregions in strategic conformity to social hierarchy. <em>Journal of Neuroscience</em>.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1002/hbm.26173" target="_blank" rel="noopener">Bero, J. et al. (2023). Coordinated anatomical and functional variability in the human brain during adolescence. <em>Human Brain Mapping</em>, 44(4), 1767-1778.</a></li>
+        <li><a class="pub-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.937905/full" target="_blank" rel="noopener">Kim, J., Moon, K., Kim, S., Kim, H., &amp; Ko, Y. G. (2023). The relationship between mental representations of self and social evaluation. <em>Frontiers in Psychology</em>, 13, 937905.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2022<span class="count"><span class="i18n ko">7편</span><span class="i18n en">7 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1002/hbm.26173" target="_blank" rel="noopener">Bero, J. et al. (2022). Coordinated anatomical and functional variability in the human brain during adolescence. <em>Human Brain Mapping</em>.</a></li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41598-022-18521-0" target="_blank" rel="noopener">Holbrook, C., Yoon, L., Fessler, D. M. T., Moser, C., Delgado, S. J., Kim, H. (2022). Moral parochialism and causal appraisal of transgressive harm in Seoul and Los Angeles. <em>Scientific reports</em>, 12, 14227.</a></li>
+        <li><a class="pub-link" href="https://www.sciencedirect.com/science/article/pii/S1053811922004748" target="_blank" rel="noopener">Kim, K. I., Jung, W. H., Woo, C. W., &amp; Kim, H. (2022). Neural signatures of individual variability in context-dependent perception of ambiguous facial expression. <em>NeuroImage</em>, 119355.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/17/12/1118/6586743" target="_blank" rel="noopener">Lim, G., &amp; Kim, H. (2022). Distinctive roles of mPFC subregions in forming impressions and guiding social interaction. <em>Social Cognitive and Affective Neuroscience</em>, 17(12), 1118-1130.</a></li>
+        <li>Kim, H. (2022). Reward-Punishment Processing and Learning. In: Encyclopedia of Behavioral Neuroscience, vol. 3. Elsevier, pp. 460–466.</li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41598-022-08460-1" target="_blank" rel="noopener">Chae, J., Kim, K., Kim, Y., Lim, G., Kim, D., &amp; Kim, H. (2022). Ingroup favoritism overrides fairness when resources are limited. <em>Scientific reports</em>, 12(1), 1-11.</a></li>
+        <li><a class="pub-link" href="https://link.springer.com/article/10.3758/s13415-021-00954-1" target="_blank" rel="noopener">Park, G., Kim, H., Mermillod, M., &amp; Thayer, J. F. (2022). The Modulation of Cardiac Vagal Tone on Attentional Orienting of Fair-Related Faces. <em>Cognitive, Affective, &amp; Behavioral Neuroscience</em>, 1-15.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2021<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8319240/" target="_blank" rel="noopener">Kim, D., Kim, J., &amp; Kim, H. (2021). Increased Conformity to Social Hierarchy Under Public Eyes. <em>Frontiers in Psychology</em>, 2818.</a></li>
+        <li><a class="pub-link" href="https://www.jneurosci.org/content/41/27/5937" target="_blank" rel="noopener">Kim, J., &amp; Kim, H. (2021). Neural representation in MPFC reveals hidden selfish motivation in white lies. <em>Journal of Neuroscience</em>, 41(27), 5937-5946.</a></li>
+        <li><a class="pub-link" href="https://link.springer.com/article/10.1007/s12144-018-9986-4" target="_blank" rel="noopener">Lee, H. S., Kim, S., Kim, H. J., &amp; Ko, Y. G. (2021). Encoding differences in posed negative emotional expressions between prosocials and proselfs. <em>Current Psychology</em>, 40(2), 719-730.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/16/5/474/6101182" target="_blank" rel="noopener">Yoon, L., Kim, K., Jung, D., &amp; Kim, H. (2021). Roles of the MPFC and Insula in Impression Management under Social Observation. <em>Social Cognitive and Affective Neuroscience</em>.</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.3390/brainsci11091227" target="_blank" rel="noopener">Kim, E. Y. et al. (2021). Effects of Oxytocin on Social Comparisons in Intergroup Situations. <em>Brain Sciences</em>, 11(9), 1227.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2020<span class="count"><span class="i18n ko">6편</span><span class="i18n en">6 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/32296303/" target="_blank" rel="noopener">Kim, H. (2020). Stability or Plasticity? – A Hierarchical Allostatic Regulation Model of MPFC Function for Social Valuation. <em>Frontiers in Neuroscience</em>, 14, 281.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/book/36956/chapter/322257469" target="_blank" rel="noopener">Rose, D. et al. (2020). The Ship of Theseus Puzzle. <em>Oxford Studies in Experimental Philosophy Volume 3</em>, 3, 158.</a></li>
+        <li><a class="pub-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.01149/full" target="_blank" rel="noopener">Moon, K., Kim, S., Kim, J., Kim, H., &amp; Ko, Y. G. (2020). The Mirror of Mind. <em>Frontiers in Psychology</em>, 11, 1149.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/32903599/" target="_blank" rel="noopener">Jung, W. H., &amp; Kim, H. (2020). Intrinsic Functional and Structural Brain Connectivity in Humans Predicts Individual Social Comparison.</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.1037/pag0000577" target="_blank" rel="noopener">Cho, I., Song, H.-j., Kim, H., &amp; Sul, S. (2020). Older adults consider others' intentions less but allocentric outcomes more than young adults during an ultimatum game. <em>Psychology and Aging</em>.</a></li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7689019/" target="_blank" rel="noopener">Shin, W. et al. (2020). The neurobehavioral mechanisms underlying attitudes toward people with mental or physical illness. <em>Frontiers in Behavioral Neuroscience</em>.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2019<span class="count"><span class="i18n ko">4편</span><span class="i18n en">4 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1111/mila.12210" target="_blank" rel="noopener">Cova F et al. (2019). De Pulchritudine non est Disputandum? <em>Mind &amp; Language</em>, 34(3), 317-338.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/nous.12211" target="_blank" rel="noopener">Rose D et al. (2019). Nothing at stake in knowledge. <em>Noûs</em>, 53(1), 224-247.</a></li>
+        <li><a class="pub-link" href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2019.02428/full" target="_blank" rel="noopener">Hannikainen IR et al. (2019). For whom does determinism undermine moral responsibility? <em>Frontiers in psychology</em>, 10, 2428.</a></li>
+        <li><a class="pub-link" href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0213104" target="_blank" rel="noopener">Lee YS, Song HS, Kim H, Chae Y. (2019). Altruistic decisions are influenced by the allocation of monetary incentives in a pain-sharing game. <em>PloS one</em>, 14(3).</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2018<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://link.springer.com/article/10.1007/s12144-018-9986-4" target="_blank" rel="noopener">Lee, H., Kim, S., Kim, H. Y, Ko. (2018). Encoding differences in posed negative emotional expressions between prosocials and proselfs. <em>Current Psychology</em>.</a></li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41467-018-05553-2" target="_blank" rel="noopener">Yoon, L., Somerville, L.H., Kim, H. (2018). Development of MPFC function mediates shifts in self-protective behavior provoked by social feedback. <em>Nature Communications</em>. (Editors' Highlights)</a></li>
+        <li><a class="pub-link" href="https://www.sciencedirect.com/science/article/abs/pii/S1090513817304154" target="_blank" rel="noopener">Lee, MW, Sul, SH, Kim, H. (2018). Social Observation Increases Deontological Judgments in Moral Dilemmas. <em>Evolution and Human Behavior</em>.</a></li>
+        <li><a class="pub-link" href="https://www.nature.com/articles/s41598-018-21449-z" target="_blank" rel="noopener">Jung, DH, Sul, SH, Lee, MW, Kim, H. (2018). Social Observation Increases Functional Segregation between MPFC Subregions Predicting Prosocial Consumer Decisions. <em>Scientific Reports</em>.</a></li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5811502/" target="_blank" rel="noopener">Park J, Kim H, Sohn JW, Choi JR, Kim SP. (2018). EEG beta oscillations in the temporoparietal area related to the accuracy in estimating others' preference. <em>Frontiers in Human Neuroscience</em>.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2017<span class="count"><span class="i18n ko">7편</span><span class="i18n en">7 papers</span></span></summary>
+      <ul class="pub-list">
+        <li>H Kim (2017). <em>A Journey into the Secret of Altruist's Brain</em>. galmaenamu.</li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5633747/" target="_blank" rel="noopener">J Kim, H Kim, E Kang (2017). Impaired Feedback Processing for symbolic reward in individuals with internet game Overuse. <em>Frontiers in psychiatry</em>, 8, 195.</a></li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5427125/" target="_blank" rel="noopener">SM Kim et al. (2017). Development of the Korean Facial Emotion Stimuli: KUFEC 2nd Edition. <em>Frontiers in psychology</em>, 8, 769.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/nous.12211" target="_blank" rel="noopener">Rose et al. (2017). Nothing at Stake in Knowledge. <em>Noûs</em>.</a></li>
+        <li><a class="pub-link" href="https://pure.qub.ac.uk/en/publications/behavioral-circumscription-and-the-folk-psychology-of-belief-a-st" target="_blank" rel="noopener">Rose et al. (2017). Behavioral Circumscription and the Folk Psychology of Belief. <em>Thought: A Journal of Philosophy</em>, 6(3), 193-203.</a></li>
+        <li><a class="pub-link" href="https://link.springer.com/article/10.1007/s40961-017-0113-y" target="_blank" rel="noopener">Machery et al. (2017). The Gettier Intuition from South America to Asia. <em>Journal of Indian Council of Philosophical Research</em>, 34(3), 517-541.</a></li>
+        <li>Kim J, Kim H, Cho, HY, Jeong H, &amp; Kang E. (2017). Neuroanatomical Correlates of Personality Traits for Internet Gaming Overuse: a VBM study. <em>Korean Journal of Psychology: General</em>, 36(1), 109-135.</li>
+      </ul>
+    </details>
+    <details class="year"><summary>2016<span class="count"><span class="i18n ko">4편</span><span class="i18n en">4 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.pnas.org/doi/10.1073/pnas.1602641113" target="_blank" rel="noopener">T Kameda et al. (2016). Rawlsian maximin rule operates as a common cognitive anchor in distributive justice and risky decisions. <em>PNAS</em>, 201602641.</a></li>
+        <li>H Kim, H Kim, S Han (2016). I CAN stand this, but WE CAN'T. <em>인지과학</em>, 27(3), 407-420.</li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/10.1002/hipo.22587" target="_blank" rel="noopener">CH Lee et al. (2016). Functional cross-hemispheric shift between object-place paired associate memory and spatial memory. <em>Hippocampus</em>, 26(8), 1061-1077.</a></li>
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5118951/" target="_blank" rel="noopener">SA Kim, H Kim, SH Kim (2016). Reappraisal modulates attentional bias to angry faces. <em>Frontiers in Psychology</em>, 7.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2015<span class="count"><span class="i18n ko">2편</span><span class="i18n en">2 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.pnas.org/doi/10.1073/pnas.1423895112" target="_blank" rel="noopener">Sul S, Tobler PN, Hein G, Leiberg S, Jung D, Fehr H, Kim H (2015). Spatial gradient in value representation along the medial prefrontal cortex reflects individual differences in prosociality. <em>PNAS</em>, 112(25), 7851-7856.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/10/9/1219/1674366" target="_blank" rel="noopener">Kim SH, Yoon H, Kim H, Hamann S. (2015). Individual differences in sensitivity to reward and punishment and neural activity during reward and avoidance learning. <em>Soc Cogn Affect Neurosci</em>, 10(9), 1219-1227.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2014<span class="count"><span class="i18n ko">3편</span><span class="i18n en">3 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001895512" target="_blank" rel="noopener">Kim, EY, Sul, SH, Yoo, H, Kim, H, &amp; Song, HJ. (2014). The relationship between mothers' altruism and their children's empathy. <em>The Korean Journal of Woman Psychology</em>, 19(2), 117-136.</a></li>
+        <li><a class="pub-link" href="https://accesson.kr/ksppa/v.28/2/201/14843" target="_blank" rel="noopener">Lee, MW, Sul, SH, &amp; Kim, H. (2014). The impact of moral decision style on impression formation. <em>Korean Journal of Social and Personality Psychology</em>, 28(2), 201-223.</a></li>
+        <li><a class="pub-link" href="https://www.researchgate.net/publication/325532823_Measuring_Individual_Differences_in_Altruism_with_Altruistic_Learning_Task_itajeog_ganghwahagseubgwajeleul_iyonghan_itaseong-ui_cheugjeong" target="_blank" rel="noopener">Sul, SH, Lee, MW, &amp; Kim, H. (2014). Measuring individual differences in altruism with altruistic learning task. <em>Korean Journal of Psychology: General</em>, 33(2), 467-489.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2013<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3840299" target="_blank" rel="noopener">Kang, PW,* Lee, JB,* Sul, SH, &amp; Kim, H. (2013). Dorsomedial prefrontal cortex activity predicts the accuracy in estimating others' preferences. <em>Frontiers in Human Neuroscience</em>.</a></li>
+        <li><a class="pub-link" href="https://www.jneurosci.org/content/33/41/16200" target="_blank" rel="noopener">Kang, PW, Lee, YS, Choi, I, &amp; Kim, H. (2013). Neural evidence for individual and cultural variability in the social comparison. <em>Journal of Neuroscience</em>, 33(41), 16200-16208.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/9/5/689/1675824" target="_blank" rel="noopener">Han, HJ, Lee, KH, Kim, HT, Kim, H. (2013). Distinctive Amygdala Subregions involved in Emotion-modulated Stroop Interference. <em>Social, Cognitive, and Affective Neuroscience</em>, 9(5), 689-698.</a></li>
+        <li><a class="pub-link" href="https://link.springer.com/article/10.1007/s00213-013-3015-y" target="_blank" rel="noopener">Kang, OS et al. (2013). Neural Substrates of Acupuncture in the Modulation of Cravings for Smoking-related Visual Cues. <em>Psychopharmacology</em>.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/23519016/" target="_blank" rel="noopener">Jung, DH, Sul, SH, &amp; Kim, H. (2013). Dissociable neural processes underlying risky decisions for self versus other. <em>Frontiers in Neuroscience</em>, 7:15.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2012<span class="count"><span class="i18n ko">4편</span><span class="i18n en">4 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/22914303/" target="_blank" rel="noopener">Lee SH et al. (2012). Do not judge according to appearance. <em>Acupuncture in Medicine</em>, 30(4), 261-265.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/22542509/" target="_blank" rel="noopener">Kang OS et al. (2012). Individual differences in smoking-related cue reactivity in smokers. <em>Progress in Neuro-Psychopharmacology and Biological Psychiatry</em>, 38(2), 285–293.</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.1177/1359105311421044" target="_blank" rel="noopener">Chang DS et al. (2012). Pre-existing beliefs and expectations influence judgments of novel health information. <em>Journal of Health Psychology</em>, 17(5), 753-763.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/21942764/" target="_blank" rel="noopener">Kim H, Choi MJ, Jang IJ. (2012). Lateral OFC Activity Predicts Decision Bias due to First Impression during Ultimatum Games. <em>Journal of Cognitive Neuroscience</em>, 24(2), 428-439.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2011<span class="count"><span class="i18n ko">2편</span><span class="i18n en">2 papers</span></span></summary>
+      <ul class="pub-list">
+        <li>Lee YS, Kim H. (2011). Social Comparison Influences Risky Financial Decisions. <em>Korean Journal of Consumer and Advertising Psychology</em>, 12(3), 477-501.</li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/20732900/" target="_blank" rel="noopener">Kim H, Shimojo S, O'Doherty JP. (2011). Overlapping responses for the expectation of juice and money rewards in human ventromedial prefrontal cortex. <em>Cerebral Cortex</em>, 21(4), 769-776.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2010<span class="count"><span class="i18n ko">6편</span><span class="i18n en">6 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001482317" target="_blank" rel="noopener">Sung YS, Cho KJ, Kim DY, Kim H. (2010). Difference in visual attention during the assessment of facial attractiveness and trustworthiness. <em>Korean Journal of the Science of Emotion and Sensibility</em>, 13(3), 533-540.</a></li>
+        <li><a class="pub-link" href="https://accesson.kr/ksppa/v.24/2/117/14713" target="_blank" rel="noopener">Lee YS, Kim H. (2010). Trustful faces in investment decisions. <em>Korean Journal of Social and Personality Psychology</em>, 24(2), 117-131.</a></li>
+        <li>Lee YS, Jang JS, Jung HJ, Kim H. (2010). The effect of the presentation order of facial trustworthiness on investment behaviors. <em>Korean Journal of Consumer and Advertising Psychology</em>, 11(2), 1-24.</li>
+        <li><a class="pub-link" href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11099447" target="_blank" rel="noopener">Kim W, Sung YS, Kim H. (2010). Functionally distinctive neural circuitries involved uniquely in encoding facial attractiveness and facial happiness. <em>The Korean Journal of Cognitive and Biological Psychology</em>, 22(1), 109-128.</a></li>
+        <li><a class="pub-link" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9221.2009.00745.x" target="_blank" rel="noopener">Mattes K et al. (2010). Predicting Election Outcomes from Positive and Negative Trait Assessments of Candidate Images. <em>Political Psychology</em>, 31(1), 41-58.</a></li>
+        <li><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001392271" target="_blank" rel="noopener">Kim W, Sung YS, Kim H. (2010). The effect of elements of humor formation and repetition on humor response. <em>Korean Journal of Consumer and Advertising Psychology</em>, 10(4), 633-662.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2009<span class="count"><span class="i18n ko">3편</span><span class="i18n en">3 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://movementdisorders.onlinelibrary.wiley.com/doi/10.1002/mds.22673" target="_blank" rel="noopener">Chae Y et al. (2009). Parsing brain activity associated with acupuncture treatment in Parkinson's diseases. <em>Movement Disorders</em>, 24(12), 1794-1802.</a></li>
+        <li><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001344332" target="_blank" rel="noopener">Sung YS, Kim H, Kim W, Kim BK. (2009). Neural network correlation for the effect of humor sensitivity and repetition. <em>Korean Journal of Consumer and Advertising Psychology</em>, 10(2), 275-298.</a></li>
+        <li>Kim H. (2009). Introduction to Cognitive Neuroscience Research. <em>Communications of the Korean Institute of Information Scientists and Engineers</em>, 27(4), 19-24.</li>
+      </ul>
+    </details>
+    <details class="year"><summary>2008<span class="count"><span class="i18n ko">3편</span><span class="i18n en">3 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/19061937/" target="_blank" rel="noopener">Chae Y et al. (2008). The neural substrates of verum acupuncture compared to non-penetrating placebo needle. <em>Neuroscience Letters</em>, 450, 80-84.</a></li>
+        <li><a class="pub-link" href="https://academic.oup.com/scan/article/3/4/344/1628408" target="_blank" rel="noopener">Spezio ML et al. (2008). A neural basis for the effect of candidate appearance of election outcomes. <em>Social, Cognitive, and Affective Neuroscience</em>, 3(4), 344-352.</a></li>
+        <li><a class="pub-link" href="https://accesson.kr/kscap/assets/pdf/15111/journal-9-2-305.pdf" target="_blank" rel="noopener">Sung YS et al. (2008). The Psychological Mechanism of Epistemic Curiosity. <em>Korean Journal of Consumer and Advertising Psychology</em>, 9(2), 305-332.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2007<span class="count"><span class="i18n ko">2편</span><span class="i18n en">2 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://www.pnas.org/doi/full/10.1073/pnas.0703101104" target="_blank" rel="noopener">Kim H, Adolphs R, O'Doherty JP, and Shimojo S. (2007). Temporal isolation of neural processes underlying face preference decisions. <em>Proceedings of the National Academy of Science</em>, 104, 18253-18258.</a></li>
+        <li><a class="pub-link" href="https://nyaspubs.onlinelibrary.wiley.com/doi/10.1196/annals.1390.022" target="_blank" rel="noopener">O'Doherty JP, Hampton A, and Kim H. (2007). Model-based fMRI and its application to reward-learning and decision making. <em>Annals of the New York Academy of Sciences</em>, 1104, 35-53.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2006<span class="count"><span class="i18n ko">1편</span><span class="i18n en">1 paper</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/16802856/" target="_blank" rel="noopener">Kim H, Shimojo S, &amp; O'Doherty JP. (2006). Is avoiding an aversive outcome rewarding? Neural substrates of avoidance learning in the human brain. <em>PLoS Biology</em>, 4(8), e233.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2004<span class="count"><span class="i18n ko">3편</span><span class="i18n en">3 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/15604401/" target="_blank" rel="noopener">Whalen PJ, Kagan J, Cook RG, Davis FC, Kim H, Polis S, McLaren DG, Somerville LH, McLean AA, Maxwell JS, &amp; Johnstone T. (2004). Human amygdala responsivity to masked fearful eye whites. <em>Science</em>, 306(5704), 2061.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/15701225/" target="_blank" rel="noopener">Kim H, Somerville LH, Johnstone T, Polis S, Alexander AL, Shin LM, &amp; Whalen PJ. (2004). Contextual modulation of amygdala responsivity to surprised faces. <em>Journal of Cognitive Neuroscience</em>, 16(10), 1730-1745.</a></li>
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/15110733/" target="_blank" rel="noopener">Somerville LH, Kim H, Johnstone T, Alexander AL, &amp; Whalen PJ. (2004). Human amygdala responses during presentation of happy and neutral faces: correlations with state anxiety. <em>Biological Psychiatry</em>, 55(9), 897-903.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2003<span class="count"><span class="i18n ko">2편</span><span class="i18n en">2 papers</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/14663183/" target="_blank" rel="noopener">Kim H, Somerville LH, Johnstone T, Alexander AL, &amp; Whalen PJ. (2003). Inverse amygdala and medial prefrontal cortex responses to surprised faces. <em>Neuroreport</em>, 14(18), 2317-2322.</a></li>
+        <li><a class="pub-link" href="https://doi.org/10.1111/j.1749-6632.2003.tb07120.x" target="_blank" rel="noopener">Kim H, Somerville LH, McLean AA, Johnstone T, Shin LM, &amp; Whalen PJ. (2003). Functional MRI responses of the human dorsal amygdala/substantia innominata region to facial expressions of emotion. <em>Annals of the New York Academy of Sciences</em>, 985, 533-535.</a></li>
+      </ul>
+    </details>
+    <details class="year"><summary>2002<span class="count"><span class="i18n ko">1편</span><span class="i18n en">1 paper</span></span></summary>
+      <ul class="pub-list">
+        <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/12382206/" target="_blank" rel="noopener">Whalen PJ, Shin LM, Somerville LH, McLean AA, &amp; Kim H. (2002). Functional neuroimaging studies of the amygdala in depression. <em>Seminars in Clinical Neuropsychiatry</em>, 7(4), 234-242.</a></li>
+      </ul>
+    </details>
+  </section>
+
+  <!-- ===================== PEOPLE ===================== -->
+  <section class="stage-section" id="sec-people" data-section="people">
+    <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">구성원</p>
+    <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">People</p>
+    <h1 class="page-title"><span class="i18n ko">연구실 구성원</span><span class="i18n en">People</span></h1>
+
+    <h2 class="section-h" id="p-director"><span class="i18n ko">디렉터</span><span class="i18n en">Director</span></h2>
+    <div class="director-card">
+      <div class="director-photo"><img src="images/1c17cc37729c5c1c51175830035277e8.jpg" alt="Hackjin Kim"></div>
+      <div>
+        <h4>Hackjin Kim, Ph.D.</h4>
+        <p><span class="i18n ko">고려대학교 심리학부 교수</span><span class="i18n en">Professor, Dept. of Psychology, Korea University</span></p>
+        <p>University of Wisconsin-Madison, Ph.D. in Biological Psychology (2004) · Boston University, M.A. in Computational Neuroscience (1998)</p>
+        <p><span class="i18n ko">연구실: +82-2-3290-2864 (구법대 205A호)</span><span class="i18n en">Office: +82-2-3290-2864 (Room 205A, Old Law Building)</span></p>
+        <a href="mailto:hackjinkim@korea.ac.kr">hackjinkim@korea.ac.kr</a>
+      </div>
+    </div>
+
+    <h2 class="section-h" id="p-current"><span class="i18n ko">현재 구성원</span><span class="i18n en">Current Members</span></h2>
+    <div class="member-grid">
+      <div class="member-card has-photo">
+        <img class="member-photo" src="images/a00043af5065eb830717b271bea9a373.webp" alt="Jinhee Kim">
+        <div><h4>Jinhee Kim, Ph.D. <span class="role-tag">· <span class="i18n ko">연구교수</span><span class="i18n en">Research Professor</span></span></h4><p>Kangwon National University, Ph.D. in Psychology (2016)</p><p>Social cognition in Internet Gaming Disorder; reinforcement learning, reward evaluation</p><a href="mailto:jinhee_kim@korea.ac.kr">jinhee_kim@korea.ac.kr</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 30%;" src="images/73eaf1e208ef53ea1a712bf4abb0009a.webp" alt="Jiwon Song">
+        <div><h4>Jiwon Song, Ph.D. <span class="role-tag">· <span class="i18n ko">연구교수</span><span class="i18n en">Research Professor</span></span></h4><p>Korea University, Ph.D. in Behavioral and Cognitive Neuroscience (2023)</p><p>Aesthetic preference judgment, interoception, social conformity</p><a href="mailto:ssongjw0909@gmail.com">ssongjw0909@gmail.com</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 22%;" src="images/3ba7ac6e5dcb54c42533fa2628b9dcd6.webp" alt="Juyoung Kim">
+        <div><h4>Juyoung Kim, Ph.D. <span class="role-tag">· <span class="i18n ko">박사후연구원</span><span class="i18n en">Post-Doc</span></span></h4><p>Korea University, Ph.D. in Behavioral and Cognitive Neuroscience (2022)</p><p>Moral licensing, moral decision making, prosocial behavior</p><a href="mailto:kjy1224@korea.ac.kr">kjy1224@korea.ac.kr</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 15%;" src="images/245d0433544f14a18b61514b714f6fdc.webp" alt="Yuri Kim">
+        <div><h4>Yuri Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Sogang University, B.A. (2020)</p><p>Altruism and reinforcement learning</p><a href="mailto:df961030@gmail.com">df961030@gmail.com</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 32%;" src="images/e9094f9873327bbf9d7cc7aab3882e3f.webp" alt="Saim Kim">
+        <div><h4>Saim Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Korea University, B.A. (2016)</p><p>Stereotypes, moral evaluation, theory of mind</p><a href="mailto:saim0829@korea.ac.kr">saim0829@korea.ac.kr</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 28%;" src="images/43647b0147c3918e66029d7c88b24dcb.webp" alt="Kyunghwan Lee">
+        <div><h4>Kyunghwan Lee <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Self-esteem, prosociality, self-control, social motivation</p><a href="mailto:kyunghwaaani@korea.ac.kr">kyunghwaaani@korea.ac.kr</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 38%;" src="images/61f6bca5d35c45a40cd77a4ba9251178.webp" alt="Eunseo Choi">
+        <div><h4>Eunseo Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>Social decision making, social comparison, altruistic behavior</p><a href="mailto:onse0858@gmail.com">onse0858@gmail.com</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 20%;" src="images/92d0e66e99faac3e417f5413a29401ca.webp" alt="Meehyun Kim">
+        <div><h4>Meehyun Kim <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Moral decision making, prosocial behavior, altruism</p><a href="mailto:kimhyunna38@gmail.com">kimhyunna38@gmail.com</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 22%;" src="images/682fc649e66c8d5b7bcc76b793f89d31.webp" alt="Junseop Shin">
+        <div><h4>Junseop Shin <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>Interoception, active inference</p><a href="mailto:shin101204@korea.ac.kr">shin101204@korea.ac.kr</a></div>
+      </div>
+      <div class="member-card has-photo">
+        <img class="member-photo" style="object-position:center 30%;" src="images/bc3a6c0c4b9ede0686db54b11f0e7d53.webp" alt="Hyojun Choi">
+        <div><h4>Hyojun Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>Allostatic control, contextual inference, computational modeling</p><a href="mailto:nathantt88@korea.ac.kr">nathantt88@korea.ac.kr</a></div>
+      </div>
+    </div>
+
+    <h2 class="section-h" id="p-former"><span class="i18n ko">졸업생</span><span class="i18n en">Former Members</span></h2>
+    <div class="former-list">
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 30%;" src="images/884daeec1c0613f6e0a7be0c2f4e7271.webp" alt="Junhee Cho">
+        <div><b>Junhee Cho</b> — Social decision making, emotional behavior, interoception. <a href="mailto:didbsth@korea.ac.kr">didbsth@korea.ac.kr</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 20%;" src="images/20c480527b7cacbb8b9ed0b188145cc7.webp" alt="Sanghun Kim">
+        <div><b>Sanghun Kim</b> — Moral decision-making, prosociality, interoception. <a href="mailto:tjdgnstkdgns@gmail.com">tjdgnstkdgns@gmail.com</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 22%;" src="images/f0a5d217019bc56f489073209ae942a2.webp" alt="Daon Lee">
+        <div><b>Daon Lee</b> — Interoception, self-esteem, social comparison. <a href="mailto:daonlyforus@gmail.com">daonlyforus@gmail.com</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/1bde5ab67c4e5fb3273d0e1ad28934e0.webp" alt="Hyeyoon Jung">
+        <div><b>Hyeyoon Jung, M.S.</b> — <span class="i18n ko">현재 University of Maryland, NACS(신경과학·인지과학) 대학원생.</span><span class="i18n en">Currently a graduate student in the Neuroscience and Cognitive Science (NACS) Program at the University of Maryland.</span> Interoception, metacognition, self-consciousness. <a href="https://nacs.umd.edu/gradprofile/jung/hyeyoon-%28yoon%29" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 30%;" src="images/35091c1cc386d14009575b6128bf1739.webp" alt="Minyoung Kim">
+        <div><b>Minyoung Kim, M.S.</b> — <span class="i18n ko">현재 Washington University in St. Louis 소속.</span><span class="i18n en">Currently at Washington University in St. Louis.</span> Social decision making, Social Comparison, Moral decision making. <a href="https://psych.washu.edu/people/minyoung-kim" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/cfd0e4b50d47bd190eb2aa2cb5889ea7.webp" alt="Hyeran Kang">
+        <div><b>Hyeran Kang, M.S.</b> — <span class="i18n ko">현재 University of Michigan, Ann Arbor 박사과정.</span><span class="i18n en">Currently a PhD student at the University of Michigan, Ann Arbor.</span> Decision-Making, Social Comparison, Hierarchy, Group Bias. <a href="https://lsa.umich.edu/psych/people/graduate-students/hyeran-kang.html" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 20%;" src="images/7ebfb826eab0d36516a45750a19cee57.webp" alt="Kun Il Kim">
+        <div><b>Kun Il Kim, Ph.D.</b> — Neuroeconomics, Strategy of Game, Value-based decision making. <a href="https://www.linkedin.com/in/kun-il-kim-42637a1b7/" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 20%;" src="images/66d2111a4ecfbc5faf92195dc1722b9d.webp" alt="Gahyun Lim">
+        <div><b>Gahyun Lim, Ph.D.</b> — <span class="i18n ko">현재 LG전자 H&amp;A(홈어플라이언스&amp;에어솔루션) 연구소 H&amp;A 플랫폼 비즈니스 PM팀 전문위원(Specialist).</span><span class="i18n en">Currently a Specialist on the H&amp;A Platform Business PM Team at LG Electronics' H&amp;A (Home Appliance &amp; Air Solution) R&amp;D Center.</span> Fairness, Social inference, Group bias.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/b4c481a85ff99e51950e8255034cca25.webp" alt="Daeeun Kim">
+        <div><b>Daeeun Kim, Ph.D.</b> — <span class="i18n ko">현재 육군3사관학교 조교수.</span><span class="i18n en">Currently Assistant Professor at Korea Army Academy at Yeongcheon.</span> Leadership decision, Social hierarchy. <a href="https://www.kaay.mil.kr:458/kaay/5029/subview.do" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/9b0ffe43afcf89be3e34dcbaa7bd5698.webp" alt="Miseung Lee">
+        <div><b>Miseung Lee, M.S.</b> — <span class="i18n ko">현재 BRframe Analytics Team.</span><span class="i18n en">Currently at BRframe, Analytics Team.</span> Social judgment, Justice sensitivity, Empathy.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 22%;" src="images/4c848fb887b4dfd9565d319cb0b425d7.webp" alt="Jihwan Chae">
+        <div><b>Jihwan Chae, M.S.</b> — <span class="i18n ko">현재 LG U+ 마케팅부서.</span><span class="i18n en">Currently at LG U+, Marketing Department.</span> Intergroup decision-making, Prosociality, Happiness.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/6a93a57896e3b752103483baf9eb27fc.webp" alt="Leehyun Yoon">
+        <div><b>Leehyun Yoon, Ph.D.</b> — <span class="i18n ko">현재 University of Texas at Dallas 조교수.</span><span class="i18n en">Currently Assistant Professor at the University of Texas at Dallas.</span> Socioemotional development, social stress, adaptive coping. <a href="https://profiles.utdallas.edu/leehyun.yoon" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/3450fb7395efc75f8471c28d84a66553.webp" alt="Wi Hoon Jung">
+        <div><b>Wi Hoon Jung, Ph.D.</b> — <span class="i18n ko">현재 가천대학교 부교수.</span><span class="i18n en">Currently Associate Professor at Gachon University.</span> Social decision making, moral judgment, subjective valuation. <a href="https://jwhnavy2.wixsite.com/candylab" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/33b7792f25aea6fdb30d60a8531ff038.webp" alt="Wooyeol Lee">
+        <div><b>Wooyeol Lee, Ph.D.</b> — <span class="i18n ko">현재 충북대학교 부교수.</span><span class="i18n en">Currently Associate Professor at Chungbuk National University.</span> Statistical methods, latent variable models. <a href="https://sites.google.com/view/wooyeollee" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/c0c2dd38a3a10e18945a005b8ba1a55d.webp" alt="Dae Hyun Jung">
+        <div><b>Dae Hyun Jung, Ph.D.</b> — <span class="i18n ko">현재 사회적기업 섭리수학(SR math) 대표.</span><span class="i18n en">Currently CEO of SR Math, a social enterprise.</span> Altruistic behavior, empathy, reputation and meditation. <a href="https://srmath.kr/" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/9985f9ae0e814fba36c243efd51f8a4e.webp" alt="Minhee Yoo">
+        <div><b>Minhee Yoo, M.S.</b> — <span class="i18n ko">현재 AI 스타트업 인텔리시아(Intellicia) 데이터 사이언티스트.</span><span class="i18n en">Currently a Data Scientist at Intellicia, an AI startup.</span> Neuroeconomics, altruism, value computation. <a href="https://intellicia.co/" target="_blank" rel="noopener">Intellicia</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/526cde3f8f1f4e8f361ba6d4cfc6a899.webp" alt="Min-Woo Lee">
+        <div><b>Min-Woo Lee, M.S.</b> — <span class="i18n ko">현재 Georgetown University 박사후연구원.</span><span class="i18n en">Currently a postdoctoral associate at Georgetown University.</span> Prosociality, caregiving, oxytocin. <a href="https://gufaculty360.georgetown.edu/s/contact/003UH00000a4QTpYAM" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/ddd1ebf172b1b4dddfcd387f80441ada.webp" alt="Minsun Kim">
+        <div><b>Minsun Kim, M.S.</b> — <span class="i18n ko">현재 MIDAS IT.</span><span class="i18n en">Currently at MIDAS IT.</span> Social comparison, group dynamics.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 30%;" src="images/f400adb3df7cd49966bad66d5a792bd4.webp" alt="Kwangwook Kim">
+        <div><b>Kwangwook Kim, M.S.</b> — Neuroeconomics, Theory of Mind, Empathy.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 30%;" src="images/08d0a56e2177c4fce93726b7ade3ef6a.webp" alt="Nuri Kim">
+        <div><b>Nuri Kim, M.S.</b> — Moral decision making, Reputation, Empathy.</div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/dd97b52918e23b67e4033ae7dcc54408.webp" alt="Hee Jung Jung">
+        <div><b>Hee Jung Jung, M.S.</b> — <span class="i18n ko">현재 Stanford University 박사후연구원 (Neurology &amp; Neurological Sciences, Parvizi Lab).</span><span class="i18n en">Currently a postdoctoral researcher at Stanford University (Neurology &amp; Neurological Sciences, Parvizi Lab).</span> Value computation, affective preference judgments. <a href="https://jungheejung.github.io/" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/abdb984c6c59dbddf032ae25679a5f43.webp" alt="Pyungwon Kang">
+        <div><b>Pyungwon Kang, Ph.D.</b> — <span class="i18n ko">현재 KAIST 뇌인지과학과 조교수.</span><span class="i18n en">Currently Assistant Professor, Dept. of Brain and Cognitive Sciences, KAIST.</span> Social interaction, trust, cooperation, cultural difference. <a href="https://bcs.kaist.ac.kr/sub020101/view/id/267" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/7106e050525919e21e7209c83f252c71.webp" alt="Eunyoung Kim">
+        <div><b>Eunyoung Kim, Ph.D.</b> — <span class="i18n ko">현재 순천향대학교 작업치료학과 교수.</span><span class="i18n en">Currently Professor, Department of Occupational Therapy, Soonchunhyang University.</span> Moral psychology, psychological inference, moral development. <a href="https://home.sch.ac.kr/profile/main.jsp?id=e03bd0466acf45e96a629b3c5330aae5eb1bd2fc2513162032a4b4703ceefa75" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/cf81dd8cc266411f590e1fb752981bf6.webp" alt="Sunhae Sul">
+        <div><b>Sunhae Sul, Ph.D.</b> — <span class="i18n ko">현재 한양대학교 데이터사이언스학과 교수.</span><span class="i18n en">Currently Professor, Department of Data Science, Hanyang University.</span> Neuroeconomics, social &amp; cultural neuroscience, altruism. <a href="https://www.socialneurosciencelab.com/" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/a7cfbd32e957bf56f41838b41f06db48.webp" alt="Yoonjae Park">
+        <div><b>Yoonjae Park, M.E.</b> — <span class="i18n ko">현재 유한킴벌리 제품기획 및 ESG 관련 부서 팀장.</span><span class="i18n en">Currently a Team Leader at Yuhan-Kimberly, in Product Planning and ESG.</span> Neuro-economics, neuro-marketing, monetary decision making. <a href="https://www.rocketpunch.com/@3d028dd50dda40de" target="_blank" rel="noopener">Profile</a></div>
+      </div>
+      <div class="former-row has-photo-row" style="display:flex;gap:14px;align-items:flex-start;">
+        <img class="member-photo" style="width:56px;height:56px;object-position:center 25%;" src="images/467eccffdbfb8954527be9faa040b9c1.webp" alt="Jongbin Lee">
+        <div><b>Jongbin Lee, M.E.</b> — <span class="i18n ko">현재 Coupang Business Analyst.</span><span class="i18n en">Currently a Business Analyst at Coupang.</span> NeuroEconomics, NeuroMarketing, Preference Prediction. <a href="https://www.linkedin.com/in/jongbin-lee-a0084238/?locale=ko" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEWS ===================== -->
+  <section class="stage-section" id="sec-news" data-section="news">
+    <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">소식</p>
+    <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">News</p>
+    <h1 class="page-title"><span class="i18n ko">연구실 소식</span><span class="i18n en">News &amp; Updates</span></h1>
+
+    <h2 class="section-h"><span class="i18n ko">예정된 행사</span><span class="i18n en">Upcoming Events</span></h2>
+    <p style="color:var(--ink-soft);font-size:14px;">
+      <span class="i18n ko">현재 등록된 예정 행사가 없습니다.</span>
+      <span class="i18n en">No upcoming events at this time.</span>
+    </p>
+
+    <h2 class="section-h"><span class="i18n ko">지난 행사</span><span class="i18n en">Previous Events</span></h2>
+    <div class="event-row"><span class="event-date">2017.09.15</span><span>Decision Neuroscience Symposium</span></div>
+    <div class="event-row"><span class="event-date">2017.05.25</span><span>Prof. Kim's book publication</span></div>
+    <div class="event-row"><span class="event-date">2016.11.04–11.06</span><span>2016 ICCN (Hangzhou)</span></div>
+    <div class="event-row"><span class="event-date">2016.09.08–09.10</span><span>2016 Flux conference</span></div>
+    <div class="event-row"><span class="event-date">2016.06.07–06.10</span><span>Leah H. Somerville's Visit</span></div>
+    <div class="event-row"><span class="event-date">2016.02.25</span><span>Graduation Ceremony</span></div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <p>Email: <a href="mailto:kulsdn@outlook.com">kulsdn@outlook.com</a></p>
+  <p><span class="i18n ko">고려대학교 심리학부</span><span class="i18n en">College of Psychology, Korea University</span></p>
+  <p><span class="i18n ko">서울특별시 성북구 안암로 145, 고려대학교 구법대 (02841)</span><span class="i18n en">Republic of Korea, Seoul 02841, Seongbuk-gu, Anam-ro 145, Korea University, Old Law Building</span></p>
+</footer>
+
+<script>
+(function(){
+  var sections = document.querySelectorAll('.stage-section');
+  var drawer = document.getElementById('mobileDrawer');
+  var menuToggle = document.getElementById('menuToggle');
+  var html = document.documentElement;
+
+  // build mobile drawer from primary nav top-level items
+  document.querySelectorAll('#primaryNav > .nav-item > button').forEach(function(b){
+    var clone = document.createElement('button');
+    clone.innerHTML = b.innerHTML;
+    clone.dataset.target = b.dataset.target;
+    drawer.appendChild(clone);
+  });
+
+  function setCurrent(target){
+    document.querySelectorAll('.nav-item').forEach(function(item){
+      var btn = item.querySelector(':scope > button');
+      item.classList.toggle('current', btn && btn.dataset.target === target);
+    });
+    drawer.querySelectorAll('button').forEach(function(b){
+      b.dataset.current = (b.dataset.target === target) ? 'true' : 'false';
+    });
+  }
+
+  function activate(target, anchor){
+    sections.forEach(function(s){ s.classList.toggle('active', s.dataset.section === target); });
+    setCurrent(target);
+    if (history.replaceState) history.replaceState(null, '', '#' + target);
+    drawer.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded','false');
+    if (anchor){
+      requestAnimationFrame(function(){
+        var el = document.getElementById(anchor);
+        if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-target]');
+    if (btn){ activate(btn.dataset.target, btn.dataset.anchor); return; }
+    var brand = e.target.closest('.brand');
+    if (brand){ activate('home'); return; }
+    var langBtn = e.target.closest('#langToggle button');
+    if (langBtn){
+      var lang = langBtn.dataset.lang;
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang);
+      document.querySelectorAll('#langToggle button').forEach(function(b){
+        b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+      });
+      try{ localStorage.setItem('lsdn-lang', lang); }catch(e){}
+      return;
+    }
+  });
+
+  menuToggle.addEventListener('click', function(){
+    var open = drawer.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  var pubToggle = document.getElementById('pubToggle');
+  pubToggle.addEventListener('click', function(){
+    var years = document.querySelectorAll('details.year');
+    var anyClosed = Array.prototype.some.call(years, function(d){ return !d.open; });
+    years.forEach(function(d){ d.open = anyClosed; });
+    var koSpan = pubToggle.querySelector('.i18n.ko');
+    var enSpan = pubToggle.querySelector('.i18n.en');
+    if (koSpan) koSpan.textContent = anyClosed ? '모두 접기' : '모두 펼치기';
+    if (enSpan) enSpan.textContent = anyClosed ? 'Collapse all' : 'Expand all';
+  });
+
+  try{
+    var savedLang = localStorage.getItem('lsdn-lang');
+    if (savedLang === 'en' || savedLang === 'ko'){
+      html.setAttribute('data-lang', savedLang);
+      html.setAttribute('lang', savedLang);
+      document.querySelectorAll('#langToggle button').forEach(function(b){
+        b.setAttribute('aria-pressed', b.dataset.lang === savedLang ? 'true' : 'false');
+      });
+    }
+  }catch(e){}
+
+  var initial = (location.hash || '').replace('#','');
+  var valid = ['home','research','publications','people','news'];
+  activate(valid.indexOf(initial) !== -1 ? initial : 'home');
+})();
+</script>
+
+</body>
+</html>
