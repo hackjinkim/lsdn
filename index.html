@@ -107,18 +107,18 @@
   .banner{
     position:relative;overflow:hidden;
     background:#000;
-    padding:120px 40px 100px;color:#fff;text-align:center;
+    padding:90px 40px 78px;color:#fff;text-align:center;
   }
   .banner-bg{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
   }
   .banner-scrim{
     position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.55) 100%);
+    background:linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.16) 45%, rgba(0,0,0,.42) 100%);
   }
   .banner-inner{position:relative;max-width:760px;margin:0 auto;}
-  .banner h1{font-size:clamp(32px,5.4vw,56px);color:#fff;margin-bottom:16px;line-height:1.15;font-weight:600;letter-spacing:-0.02em;}
-  .banner p{color:rgba(255,255,255,.86);font-size:19px;max-width:52ch;margin:0 auto;line-height:1.5;}
+  .banner h1{font-size:clamp(32px,5.4vw,56px);color:#fff;margin-bottom:16px;line-height:1.15;font-weight:600;letter-spacing:-0.02em;text-shadow:0 2px 6px rgba(0,0,0,.75), 0 8px 30px rgba(0,0,0,.6);}
+  .banner p{color:rgba(255,255,255,.94);font-size:19px;max-width:52ch;margin:0 auto;line-height:1.5;text-shadow:0 1px 4px rgba(0,0,0,.8), 0 6px 20px rgba(0,0,0,.55);}
 
   /* ---------- Stage ---------- */
   .stage{max-width:820px;margin:0 auto;padding:80px 40px 120px;}
@@ -259,7 +259,7 @@
     }
     nav.mobile-drawer button{all:unset;cursor:pointer;padding:12px 4px;font-size:15px;color:var(--ink-soft);border-bottom:1px solid var(--line);}
     nav.mobile-drawer button[data-current="true"]{color:var(--ink);font-weight:700;}
-    .banner{padding:72px 22px;}
+    .banner{padding:60px 20px 52px;}
     .stage{padding:56px 18px 90px;}
     .page-title{font-size:32px;}
     .member-grid{grid-template-columns:1fr;}
@@ -317,7 +317,7 @@
 </div>
 
 <div class="banner">
-  <img class="banner-bg" src="images/f3456f6fe591470c434c99c157c2d7ba.jpg" alt="" aria-hidden="true">
+  <img class="banner-bg" src="images/c99200541d8e2aa4e3c3a865a9ba4780.webp" alt="" aria-hidden="true">
   <div class="banner-scrim"></div>
   <div class="banner-inner">
     <h1><span class="i18n ko block">사회적 판단과 의사결정의 신경 기제를 밝힙니다</span><span class="i18n en block">Laboratory of Social and Decision Neuroscience</span></h1>
@@ -468,7 +468,7 @@
             <span class="i18n ko">친사회적인 사람과 이기적인 사람의 뇌는 타인의 이익을 가치 있게 여기는 방식에서 어떻게 다를까요? 이 연구는 참가자들이 자기 자신, 상대방, 또는 둘 다를 위해 보상을 획득할 수 있는 학습 과제를 수행하는 동안 뇌 활동을 측정했습니다. 행동 결과에서는 참가자들이 자신의 몫만큼은 아니지만 타인의 몫에도 가치를 부여한다는 것이 확인되었습니다. 뇌영상 분석에서는 내측 전전두피질(medial prefrontal cortex, MPFC) 안에 뚜렷한 공간적 경사(spatial gradient)가 존재한다는 것이 발견되었는데, 배쪽(복측, ventral)에 가까울수록 자기 자신을 위한 가치를, 등쪽(배측, dorsal)에 가까울수록 타인을 위한 가치를 주로 나타냈습니다. 특히 중요한 발견은, 이기적인 사람일수록 이 복측-배측 사이의 전환이 뚜렷하게 나뉘어 자기 가치와 타인 가치가 서로 다른 영역에 분리되어 표상된 반면, 친사회적인 사람일수록 복측 영역에서부터 이미 자기 가치와 타인 가치가 서로 겹쳐 표상되는 완만한 전환을 보였다는 것입니다. 또한 친사회적인 사람은 타인을 위한 선택을 하고 그 가치를 갱신할 때 MPFC와 선조체(striatum) 사이의 기능적 연결이 더 강하게 나타났습니다. 이 연구는 인간의 친사회성 개인차를 설명할 수 있는 구체적인 신경학적 지표를 제시했습니다.</span>
             <span class="i18n en">How do selfish and prosocial brains differ in the way they value another person's welfare? In this study, participants underwent brain imaging while performing a learning task in which they could earn rewards for themselves, for another person, or for both. Behaviorally, participants valued the other person's welfare too, though less than their own. Neural data revealed a clear spatial gradient within the medial prefrontal cortex (MPFC): more ventral regions predominantly represented self-regarding value, while more dorsal regions predominantly represented other-regarding value. Critically, selfish individuals showed a sharper separation between these ventral (self) and dorsal (other) regions, whereas prosocial individuals showed self- and other-regarding value signals already overlapping in the ventral MPFC, with a more gradual ventral-to-dorsal transition. Prosocial individuals also showed stronger functional coupling between the MPFC and the striatum specifically when making and updating choices on behalf of another person. This study provides a concrete neural marker that helps explain individual differences in human prosociality.</span>
           </p>
-          <a class="study-ref" href="https://doi.org/10.1073/pnas.1423895112" target="_blank" rel="noopener">Sul, Tobler, Hein, Lee, Engelmann &amp; Kim, <em>PNAS</em> (2015)</a>
+          <a class="study-ref" href="https://doi.org/10.1073/pnas.1423895112" target="_blank" rel="noopener">Sul, Tobler, Hein, Leiberg, Jung, Fehr &amp; Kim, <em>PNAS</em> (2015)</a>
         </div>
       </div>
 
@@ -1125,7 +1125,8 @@
       <div>
         <h4>Hackjin Kim, Ph.D.</h4>
         <p><span class="i18n ko">고려대학교 심리학부 교수</span><span class="i18n en">Professor, School of Psychology, Korea University</span></p>
-        <p>University of Wisconsin-Madison, Ph.D. in Biological Psychology (2004) · Boston University, M.A. in Computational Neuroscience (1998)</p>
+        <p>University of Wisconsin-Madison, Ph.D. in Biological Psychology (2004)</p>
+        <p>Boston University, M.A. in Computational Neuroscience (1998)</p>
         <p><span class="i18n ko">연구실: +82-2-3290-2864 (구법대 205A호)</span><span class="i18n en">Office: +82-2-3290-2864 (Room 205A, Old Law Building)</span></p>
         <a href="mailto:hackjinkim@korea.ac.kr">hackjinkim@korea.ac.kr</a>
       </div>
@@ -1147,35 +1148,35 @@
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 15%;" src="images/245d0433544f14a18b61514b714f6fdc.webp" alt="Yuri Kim">
-        <div><h4>Yuri Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Sogang University, B.A. (2020)</p><p>Altruism and reinforcement learning</p><a href="mailto:df961030@gmail.com">df961030@gmail.com</a></div>
+        <div><h4>Yuri Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Sogang University, B.A. in Global Korean Studies and Psychology (2020)</p><p>Altruism and reinforcement learning</p><a href="mailto:df961030@gmail.com">df961030@gmail.com</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 32%;" src="images/e9094f9873327bbf9d7cc7aab3882e3f.webp" alt="Saim Kim">
-        <div><h4>Saim Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Korea University, B.A. (2016)</p><p>Stereotypes, moral evaluation, theory of mind</p><a href="mailto:saim0829@korea.ac.kr">saim0829@korea.ac.kr</a></div>
+        <div><h4>Saim Kim <span class="role-tag">· <span class="i18n ko">박사과정</span><span class="i18n en">Doctoral</span></span></h4><p>Korea University, B.A. in English Language and Literature and Psychology (2016)</p><p>Stereotypes, moral evaluation, theory of mind</p><a href="mailto:saim0829@korea.ac.kr">saim0829@korea.ac.kr</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 28%;" src="images/43647b0147c3918e66029d7c88b24dcb.webp" alt="Kyunghwan Lee">
-        <div><h4>Kyunghwan Lee <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Self-esteem, prosociality, self-control, social motivation</p><a href="mailto:kyunghwaaani@korea.ac.kr">kyunghwaaani@korea.ac.kr</a></div>
+        <div><h4>Kyunghwan Lee <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Korea University, B.S. in Psychology and B.A. in Spanish Language and Literature</p><p>Korea University, M.S. in Behavioral and Cognitive Neuroscience</p><p>Self-esteem, prosociality, self-control, social motivation</p><a href="mailto:kyunghwaaani@korea.ac.kr">kyunghwaaani@korea.ac.kr</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 38%;" src="images/61f6bca5d35c45a40cd77a4ba9251178.webp" alt="Eunseo Choi">
-        <div><h4>Eunseo Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>The Catholic University of Korea, B.A. in Psychology</p><p>Social decision making, social comparison, altruistic behavior</p><a href="mailto:onse0858@gmail.com">onse0858@gmail.com</a></div>
+        <div><h4>Eunseo Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>The Catholic University of Korea, B.A. in Psychology and Philosophy</p><p>Social decision making, social comparison, altruistic behavior</p><a href="mailto:onse0858@gmail.com">onse0858@gmail.com</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 20%;" src="images/92d0e66e99faac3e417f5413a29401ca.webp" alt="Meehyun Kim">
-        <div><h4>Meehyun Kim <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Yonsei University, B.A. in Psychology</p><p>Moral decision making, prosocial behavior, altruism</p><a href="mailto:kimhyunna38@gmail.com">kimhyunna38@gmail.com</a></div>
+        <div><h4>Meehyun Kim <span class="role-tag">· <span class="i18n ko">석사후연구원</span><span class="i18n en">Post-Master's</span></span></h4><p>Yonsei University, B.A. in Psychology</p><p>Korea University, M.S. in Behavioral and Cognitive Neuroscience</p><p>Moral decision making, prosocial behavior, altruism</p><a href="mailto:kimhyunna38@gmail.com">kimhyunna38@gmail.com</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 22%;" src="images/682fc649e66c8d5b7bcc76b793f89d31.webp" alt="Junseop Shin">
-        <div><h4>Junseop Shin <span class="role-tag">· <span class="i18n ko">학석사연계과정</span><span class="i18n en">Combined B.A.-M.A.</span></span></h4><p>Korea University, B.A. in Psychology</p><p>Interoception, active inference</p><a href="mailto:shin101204@korea.ac.kr">shin101204@korea.ac.kr</a></div>
+        <div><h4>Junseop Shin <span class="role-tag">· <span class="i18n ko">학석사연계과정</span><span class="i18n en">Combined B.A.-M.A.</span></span></h4><p>Korea University, B.S. in Psychology and Brain Science</p><p>Interoception, active inference</p><a href="mailto:shin101204@korea.ac.kr">shin101204@korea.ac.kr</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 30%;" src="images/bc3a6c0c4b9ede0686db54b11f0e7d53.webp" alt="Hyojun Choi">
-        <div><h4>Hyojun Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>Korea University, B.A. in Psychology &amp; Computer Science (dual degree)</p><p>Allostatic control, contextual inference, computational modeling</p><a href="mailto:nathantt88@korea.ac.kr">nathantt88@korea.ac.kr</a></div>
+        <div><h4>Hyojun Choi <span class="role-tag">· <span class="i18n ko">석사과정</span><span class="i18n en">Master's</span></span></h4><p>Korea University, B.S. in Psychology and Computer Science</p><p>Allostatic control, contextual inference, computational modeling</p><a href="mailto:nathantt88@korea.ac.kr">nathantt88@korea.ac.kr</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 35%;" src="images/482d8ce023e53456ca56b1ffe65dfb5a.jpg" alt="Yeram Yang">
-        <div><h4>Yeram Yang <span class="role-tag">· <span class="i18n ko">학석사연계과정</span><span class="i18n en">Combined B.A.-M.A.</span></span></h4><p>Korea University, B.A. in Psychology</p><p>Self-transcendent emotions, social decision making, interoception</p><a href="mailto:rami39@korea.ac.kr">rami39@korea.ac.kr</a></div>
+        <div><h4>Yeram Yang <span class="role-tag">· <span class="i18n ko">학석사연계과정</span><span class="i18n en">Combined B.A.-M.A.</span></span></h4><p>Korea University, B.S. in Psychology and B.A. in German Language and Literature</p><p>Self-transcendent emotions, social decision making, interoception</p><a href="mailto:rami39@korea.ac.kr">rami39@korea.ac.kr</a></div>
       </div>
       <div class="member-card has-photo">
         <img class="member-photo" style="object-position:center 22%;" src="images/d591796a4fa9fd60bf0daa8e7195f49d.jpg" alt="Chaewon Song">
