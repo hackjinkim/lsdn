@@ -172,6 +172,43 @@
   }
   .study-ref:hover{color:var(--crimson);border-bottom-color:var(--crimson);}
 
+
+  /* ---------- Research overview ---------- */
+  .ov-intro{font-size:15px;color:var(--ink-soft);margin:-6px 0 6px;max-width:62ch;}
+  .ov-theme{margin-top:34px;}
+  .ov-theme-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding-top:18px;border-top:1px solid var(--line);margin-bottom:6px;}
+  .ov-theme:first-of-type .ov-theme-head{border-top:none;padding-top:0;}
+  .ov-theme-head h3{font-size:19px;font-weight:700;letter-spacing:-0.01em;}
+  .ov-theme-head .ov-count{font-size:12px;color:var(--ink-soft);}
+  .ov-theme-desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px;max-width:70ch;}
+  .ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .ov-card{background:var(--tint);border-radius:16px;padding:16px 18px 18px;transition:transform .2s ease, box-shadow .2s ease;}
+  .ov-card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.08);}
+  .ov-card p.ov-who{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--crimson);margin-bottom:6px;}
+  .ov-card h4{font-size:15.5px;font-weight:700;line-height:1.4;margin-bottom:6px;}
+  .ov-card p{font-size:13px;color:var(--ink-soft);line-height:1.65;margin:0;}
+  @media (max-width:820px){ .ov-grid{grid-template-columns:1fr;} }
+  #r-who{margin-top:56px;padding-top:32px;border-top:1px solid var(--line);}
+
+  /* ---------- Books ---------- */
+  .book-list{display:grid;grid-template-columns:1fr;gap:22px;margin:6px 0 40px;}
+  .book-card{display:grid;grid-template-columns:150px 1fr;gap:22px;background:var(--tint);border-radius:18px;padding:20px;}
+  .book-cover{display:block;width:150px;aspect-ratio:3/4.3;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.16);position:relative;}
+  .book-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+  .book-ph{display:none;}
+  .book-cover.nocover{display:flex;align-items:center;justify-content:center;padding:12px;text-align:center;background:#222;color:#fff;font-weight:600;font-size:14px;line-height:1.4;text-decoration:none;}
+  .book-cover.nocover .book-ph{display:block;}
+  .book-role{font-size:12px;color:var(--crimson,#8b1a2b);font-weight:600;margin:0 0 6px;}
+  .book-info h3{font-size:19px;line-height:1.35;margin:0 0 4px;}
+  .book-info h3 a{color:inherit;text-decoration:none;}
+  .book-info h3 a:hover{text-decoration:underline;}
+  .book-sub{font-size:13.5px;color:var(--ink-soft);margin:0 0 6px;}
+  .book-meta{font-size:12.5px;color:var(--ink-soft);margin:0 0 10px;}
+  .book-desc{font-size:14px;line-height:1.65;margin:0 0 10px;}
+  .book-link{font-size:13px;font-weight:600;color:var(--crimson,#8b1a2b);text-decoration:none;}
+  .book-link:hover{text-decoration:underline;}
+  @media (max-width:560px){.book-card{grid-template-columns:1fr;}.book-cover{width:130px;margin:0 auto;}}
+
   /* ---------- Publications ---------- */
   .pub-toolbar{display:flex;justify-content:flex-end;margin-bottom:14px;}
   .pub-toolbar button{all:unset;cursor:pointer;font-size:13px;color:var(--crimson);font-weight:500;}
@@ -296,11 +333,13 @@
     <div class="nav-item">
       <button data-target="research"><span class="i18n ko">연구</span><span class="i18n en">Research</span></button>
       <div class="dropdown">
+        <button data-target="research" data-anchor="r-overview"><span class="i18n ko">연구 한눈에 보기</span><span class="i18n en">At a Glance</span></button>
         <button data-target="research" data-anchor="r-who"><span class="i18n ko">연구 소개</span><span class="i18n en">Overview</span></button>
         <button data-target="research" data-anchor="r-studies"><span class="i18n ko">주요 연구</span><span class="i18n en">Selected Studies</span></button>
       </div>
     </div>
     <div class="nav-item"><button data-target="publications"><span class="i18n ko">논문</span><span class="i18n en">Publications</span></button></div>
+    <div class="nav-item"><button data-target="books"><span class="i18n ko">저서</span><span class="i18n en">Books</span></button></div>
     <div class="nav-item"><button data-target="news"><span class="i18n ko">소식</span><span class="i18n en">News &amp; Updates</span></button></div>
     <div class="nav-item">
       <button data-target="gallery"><span class="i18n ko">갤러리</span><span class="i18n en">Gallery</span></button>
@@ -364,19 +403,12 @@
       <h3><span class="i18n ko">최근 논문</span><span class="i18n en">Recent Publications</span></h3>
       <ul>
         <li><b>2026</b> — Cardiac Dynamics During Social Evaluative Feedback. <em>Biological Psychology</em></li>
+        <li><b>2026</b> — Impression management in distributive justice: balancing fairness and social perception. <em>Frontiers in Psychology</em></li>
         <li><b>2025</b> — Neural Processes Linking Interoception to Moral Preferences Aligned with Group Consensus. <em>Journal of Neuroscience</em></li>
         <li><b>2025</b> — Neural signatures of socially shaped self-worth: A meta-analysis. <em>NeuroImage</em></li>
       </ul>
     </div>
 
-    <div class="callout">
-      <h3><span class="i18n ko">지난 행사</span><span class="i18n en">Previous Events</span></h3>
-      <ul>
-        <li><b>2017.09.15</b> — Decision Neuroscience Symposium</li>
-        <li><b>2016.11.04–11.06</b> — 2016 ICCN (Hangzhou)</li>
-        <li><b>2016.09.08–09.10</b> — 2016 Flux conference</li>
-      </ul>
-    </div>
   </section>
 
   <!-- ===================== RESEARCH ===================== -->
@@ -384,6 +416,102 @@
     <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">연구</p>
     <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">Research</p>
     <h1 class="page-title"><span class="i18n ko">연구 소개</span><span class="i18n en">Research</span></h1>
+
+    <h2 class="section-h" id="r-overview"><span class="i18n ko">연구 한눈에 보기</span><span class="i18n en">Research at a Glance</span></h2>
+    <p class="ov-intro"><span class="i18n ko">우리 연구실에서 진행되었거나 현재 진행 중인 연구를 주제별로 모았습니다.</span><span class="i18n en">Studies completed or currently under way in our lab, grouped by theme.</span></p>
+      <div class="ov-theme">
+        <div class="ov-theme-head"><h3><span class="i18n ko">내수용감각과 선호·도덕 판단</span><span class="i18n en">Interoception, Preference & Moral Judgment</span></h3><span class="ov-count"><span class="i18n ko">4개 연구</span><span class="i18n en">4 projects</span></span></div>
+        <p class="ov-theme-desc"><span class="i18n ko">몸 안의 신호(특히 심장)를 뇌가 읽어내는 능력이 무엇을 좋아하고 무엇을 옳다고 여기는지에 어떻게 영향을 주는지 탐구합니다.</span><span class="i18n en">How the brain's reading of bodily signals, especially from the heart, shapes what we like and what we judge to be right.</span></p>
+        <div class="ov-grid">
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김유리</span><span class="i18n en">Yuri Kim</span></p>
+          <h4><span class="i18n ko">선호 판단과 내수용감각의 관계</span><span class="i18n en">Interoception and Preference Judgment</span></h4>
+          <p><span class="i18n ko">뇌파 기반 심장박동유발전위(HEP)와 fMRI를 함께 사용해, 몸 내부 신호의 뇌 처리가 주관적 선호 판단과 어떻게 연결되는지 규명합니다.</span><span class="i18n en">Combining EEG-based heartbeat-evoked potentials (HEP) and fMRI to reveal how the brain's processing of internal bodily signals relates to subjective preference judgments.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">송지원</span><span class="i18n en">Jiwon Song</span></p>
+          <h4><span class="i18n ko">곡률 선호와 예술 전문성</span><span class="i18n en">Curvature Preference and Art Expertise</span></h4>
+          <p><span class="i18n ko">곡선 형태에 대한 미적 선호가 예술 전문성, 자극 제시 시간, 내수용감각에 따라 어떻게 달라지는지 살펴봅니다.</span><span class="i18n en">Examining how aesthetic preference for curved forms varies with art expertise, presentation time, and interoception.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김주영</span><span class="i18n en">Juyoung Kim</span></p>
+          <h4><span class="i18n ko">도덕 판단과 내수용감각의 문화 차이</span><span class="i18n en">Cultural Differences in Interoception and Moral Judgment</span></h4>
+          <p><span class="i18n ko">내수용감각의 정확도가 집단 합의에 부합하는 도덕 판단과 연결되는 정도가 한국인과 서구 배경 참가자 사이에서 어떻게 다른지 비교합니다.</span><span class="i18n en">Comparing Korean and Western participants on how interoceptive accuracy relates to moral judgments that align with group consensus.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">이다온</span><span class="i18n en">Daon Lee</span></p>
+          <h4><span class="i18n ko">도덕적 동조 vs. 도덕적 일치</span><span class="i18n en">Moral Conformity vs. Moral Alignment</span></h4>
+          <p><span class="i18n ko">내수용감각 능력과 도덕적 동조(moral conformity), 도덕적 일치(moral alignment)의 관계를 비교합니다.</span><span class="i18n en">Comparing how interoceptive ability relates to moral conformity and moral alignment.</span></p>
+        </div>
+        </div>
+      </div>
+      <div class="ov-theme">
+        <div class="ov-theme-head"><h3><span class="i18n ko">내수용감각과 자기·정서</span><span class="i18n en">Interoception, Self & Emotion</span></h3><span class="ov-count"><span class="i18n ko">2개 연구</span><span class="i18n en">2 projects</span></span></div>
+        <p class="ov-theme-desc"><span class="i18n ko">몸의 신호에 대한 민감도가 자기 보호적 행동과 정서 반응의 개인차를 어떻게 설명하는지 살펴봅니다.</span><span class="i18n en">How sensitivity to bodily signals helps explain individual differences in self-protective behavior and emotional responses.</span></p>
+        <div class="ov-grid">
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">이경환</span><span class="i18n en">Kyunghwan Lee</span></p>
+          <h4><span class="i18n ko">자기불구화 연구</span><span class="i18n en">Self-Handicapping</span></h4>
+          <p><span class="i18n ko">스스로 불리한 조건을 만드는 행동적 자기불구화가 내수용 정확도 및 문화적 배경과 어떻게 연결되는지 탐구합니다.</span><span class="i18n en">Investigating how behavioral self-handicapping relates to interoceptive accuracy and cultural background.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">정혜윤</span><span class="i18n en">Hyeyoon Jung</span></p>
+          <h4><span class="i18n ko">정서간섭효과와 내수용감각 민감도</span><span class="i18n en">Emotional Interference and Interoceptive Sensitivity</span></h4>
+          <p><span class="i18n ko">정서 정보로 인한 간섭 효과의 개인차가 내수용감각 민감도와 어떻게 관련되는지 규명합니다.</span><span class="i18n en">Identifying how individual differences in emotional interference effects relate to interoceptive sensitivity.</span></p>
+        </div>
+        </div>
+      </div>
+      <div class="ov-theme">
+        <div class="ov-theme-head"><h3><span class="i18n ko">사회비교·사회적 평가와 심장 신호</span><span class="i18n en">Social Comparison, Evaluation & Cardiac Signals</span></h3><span class="ov-count"><span class="i18n ko">4개 연구</span><span class="i18n en">4 projects</span></span></div>
+        <p class="ov-theme-desc"><span class="i18n ko">나와 타인을 견주고 평가받는 순간의 심리와 심장 반응을 일상과 실험실에서 측정합니다.</span><span class="i18n en">Measuring the psychology and cardiac responses of comparing ourselves with others and being evaluated, in the lab and in daily life.</span></p>
+        <div class="ov-grid">
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김진희</span><span class="i18n en">Jinhee Kim</span></p>
+          <h4><span class="i18n ko">MindAlarm 연구</span><span class="i18n en">MindAlarm</span></h4>
+          <p><span class="i18n ko">심장 엔트로피 지표를 이용해 일상 속 자기존중감의 불균형을 탐지하는 방법을 개발합니다.</span><span class="i18n en">Developing a method to detect imbalances in self-esteem in daily life using cardiac entropy measures.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김진희</span><span class="i18n en">Jinhee Kim</span></p>
+          <h4><span class="i18n ko">사회비교·사회적 평가에 대한 심장 반응</span><span class="i18n en">Cardiac Responses to Social Comparison and Evaluation</span></h4>
+          <p><span class="i18n ko">스마트폰과 스마트워치로 사회적 평가 결과에 대한 심장 반응을 추적해, 사회비교 민감도의 개인차를 측정합니다.</span><span class="i18n en">Tracking cardiac responses to social evaluation outcomes with a smartphone and smartwatch to measure individual differences in social comparison sensitivity.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김사임</span><span class="i18n en">Saim Kim</span></p>
+          <h4><span class="i18n ko">과시소비 연구</span><span class="i18n en">Conspicuous Consumption</span></h4>
+          <p><span class="i18n ko">과시소비의 심리적 기반을 탐구합니다.</span><span class="i18n en">Exploring the psychological basis of conspicuous consumption.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김사임</span><span class="i18n en">Saim Kim</span></p>
+          <h4><span class="i18n ko">사회비교 연구</span><span class="i18n en">Social Comparison</span></h4>
+          <p><span class="i18n ko">자신과의 비교와 타인과의 비교가 어떻게 다른지 규명합니다.</span><span class="i18n en">Identifying how comparison with oneself differs from comparison with others.</span></p>
+        </div>
+        </div>
+      </div>
+      <div class="ov-theme">
+        <div class="ov-theme-head"><h3><span class="i18n ko">공감·친사회성과 AI·계산 모델링</span><span class="i18n en">Empathy, Prosociality, AI & Computational Models</span></h3><span class="ov-count"><span class="i18n ko">4개 연구</span><span class="i18n en">4 projects</span></span></div>
+        <p class="ov-theme-desc"><span class="i18n ko">공감과 협력이 어떻게 생겨나고 조절되는지를 인간 실험과 계산 모델, 인공지능 모델로 함께 탐구합니다.</span><span class="i18n en">Studying how empathy and cooperation arise and are regulated, through human experiments, computational models, and AI models.</span></p>
+        <div class="ov-grid">
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">최효준</span><span class="i18n en">Hyojun Choi</span></p>
+          <h4><span class="i18n ko">HalloReg 연구</span><span class="i18n en">HalloReg</span></h4>
+          <p><span class="i18n ko">능동추론(active inference) 기반 에이전트가 반복 죄수의 딜레마에서 자기 보호와 상호 협력을 조화시키는 적응적 친사회성을 항상성 조절로 구현합니다.</span><span class="i18n en">An active-inference agent that reconciles self-protection and mutual cooperation in the iterated Prisoner's Dilemma, implementing adaptive prosociality through allostatic regulation.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">신준섭</span><span class="i18n en">Junseop Shin</span></p>
+          <h4><span class="i18n ko">NeuroCogMap 연구</span><span class="i18n en">NeuroCogMap</span></h4>
+          <p><span class="i18n ko">대규모 언어모델(LLM)의 내부 표상이 도덕적 시나리오에 대한 인간 대뇌 피질의 반응을 예측하는지 검증합니다.</span><span class="i18n en">Testing whether internal representations of large language models predict human cortical responses to moral scenarios.</span></p>
+        </div>
+        <div class="ov-card">
+          <p class="ov-who"><span class="i18n ko">김미현</span><span class="i18n en">Meehyun Kim</span></p>
+          <h4><span class="i18n ko">독서 방식과 공감</span><span class="i18n en">Reading Style and Empathy</span></h4>
+          <p><span class="i18n ko">감정에 몰입해 읽을 때와 내용을 암기하며 읽을 때, 공감과 도덕 판단이 어떻게 달라지는지 비교합니다.</span><span class="i18n en">Comparing how empathy and moral judgment differ when people read with emotional immersion versus reading to memorize content.</span></p>
+        </div>
+        <div class="ov-card">
+          <h4><span class="i18n ko">설명 가능하고 윤리적인 AI 연구</span><span class="i18n en">Explainable and Ethical AI</span></h4>
+          <p><span class="i18n ko">인간의 사회적·도덕적 판단에 대한 이해를 바탕으로, 설명 가능하고 윤리적인 인공지능을 연구합니다.</span><span class="i18n en">Research on explainable and ethical artificial intelligence, grounded in our understanding of human social and moral judgment.</span></p>
+        </div>
+        </div>
+      </div>
 
     <p id="r-who">
       <span class="i18n ko">Laboratory of Social and Decision Neuroscience(LSDN)는 고려대학교 심리학부 소속의 사회 및 의사결정 신경과학 연구실로, 김학진 교수(Ph.D.)가 디렉터를 맡고 있습니다.</span>
@@ -924,6 +1052,7 @@
 
     <details class="year" open><summary>2026<span class="count"><span class="i18n ko">5편</span><span class="i18n en">5 papers</span></span></summary>
       <ul class="pub-list">
+        <li><a class="pub-link" href="https://doi.org/10.1111/jopy.70107" target="_blank" rel="noopener">Grossmann, I., Rudnev, M., Dorfman, A., et al. (2026). The Architecture of Wisdom in Interpersonal Conflict: Structure and Trait, State, and Cultural Expression Across World Regions. <em>Journal of Personality</em>, 1–20.</a></li>
         <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/42070706/" target="_blank" rel="noopener">Kim, J., Lee, M., Lee, D., Kim, M., &amp; Kim, H. (2026). Cardiac Dynamics During Social Evaluative Feedback: Evidence from Intersubject Representational Similarity Analysis. <em>Biological Psychology</em>, 210, 109278.</a></li>
         <li><a class="pub-link" href="https://pubmed.ncbi.nlm.nih.gov/42425248/" target="_blank" rel="noopener">Moon, H†, Kim, J†, Kim, G., Kim, H., Kim, T., Hur, J-W. (2026). Neural correlates of early- and late-onset nonsuicidal self-injury. <em>Journal of Affective Disorders</em>, 413, 122238. (†co-first author)</a></li>
         <li><a class="pub-link" href="https://doi.org/10.1093/pnasnexus/pgag074" target="_blank" rel="noopener">Zoh, Y., Kim, S., Kim, H., Crockett, M. J., &amp; Ahn, W. Y. (2026). Decomposing the neurocomputational mechanisms of deontological moral preferences. <em>PNAS Nexus</em>, 5(4), pgag074.</a></li>
@@ -1318,6 +1447,133 @@
     <div class="event-row"><span class="event-date">2016.02.25</span><span>Graduation Ceremony</span></div>
   </section>
 
+  <!-- ===================== BOOKS ===================== -->
+  <section class="stage-section" id="sec-books" data-section="books">
+    <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">저서</p>
+    <p class="kicker i18n en block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">Books</p>
+    <h1 class="page-title"><span class="i18n ko">저서</span><span class="i18n en">Books</span></h1>
+
+    <h2 class="section-h" id="b-sole"><span class="i18n ko">단독 저서</span><span class="i18n en">Authored Books</span></h2>
+    <div class="book-list">
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/122481201" target="_blank" rel="noopener" aria-label="뇌는 어떻게 자존감을 설계하는가">
+          <img loading="lazy" src="images/5ad21830cda99326e3117ecc931f846f.jpg" alt="뇌는 어떻게 자존감을 설계하는가 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">뇌는 어떻게 자존감을 설계하는가</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">단독 저서</span><span class="i18n en">Sole author</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/122481201" target="_blank" rel="noopener"><span class="i18n ko">뇌는 어떻게 자존감을 설계하는가</span><span class="i18n en">How the Brain Designs Self-Esteem</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">잃어버린 나를 찾기 위한 뇌과학자의 자기감 수업</span><span class="i18n en">A neuroscientist's course on the sense of self</span></p>
+          <p class="book-meta">갈매나무 (Galmaenamu) · 2023.09</p>
+          <p class="book-desc"><span class="i18n ko">자존감을 뇌의 "자기감"과 신체 균형을 유지하는 항상성(allostasis) 시스템의 관점에서 다시 정의합니다. 이 시스템이 과부하될 때 불안, 우울, 인정 중독, 분노 문제로 이어지는 과정을 설명하고, 자기 감정을 알아차려 균형을 회복하는 방법을 제안합니다.</span><span class="i18n en">Reframes self-esteem through the brain's "sense of self" and the allostatic system that keeps the body in balance. Explains how overload of this system leads to anxiety, depression, approval addiction, and anger, and proposes recognizing one's own emotions to restore balance.</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/122481201" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/106475387" target="_blank" rel="noopener" aria-label="이타주의자의 은밀한 뇌구조">
+          <img loading="lazy" src="images/4215ea74c37d24c4599061a7f8537203.jpg" alt="이타주의자의 은밀한 뇌구조 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">이타주의자의 은밀한 뇌구조</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">단독 저서</span><span class="i18n en">Sole author</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/106475387" target="_blank" rel="noopener"><span class="i18n ko">이타주의자의 은밀한 뇌구조</span><span class="i18n en">The Hidden Brain Structure of an Altruist</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">인간의 선량함, 그 지속가능성에 대한 뇌과학자의 질문</span><span class="i18n en">A neuroscientist's question about the sustainability of human goodness</span></p>
+          <p class="book-meta">갈매나무 (Galmaenamu) · 2022.01 (개정증보판)</p>
+          <p class="book-desc"><span class="i18n ko">사람은 왜 남을 돕는가를 뇌과학으로 풀어냅니다. 이타 행동의 바탕에는 타인의 인정을 바라는 보상 회로가 있고, 공감과 공정성조차 생존 전략과 닿아 있음을 보여줍니다. 동기를 스스로 이해하고 돕는 "합리적 이타주의"를 제안합니다.</span><span class="i18n en">Examines why people help others through neuroscience: altruism is often tied to the brain's reward system and the desire for approval, and even empathy and fairness connect to survival strategies. Proposes "rational altruism," helping with awareness of one's own motives. (Revised and expanded edition.)</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/106475387" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+    </div>
+
+    <h2 class="section-h" id="b-co"><span class="i18n ko">공저·공역</span><span class="i18n en">Co-authored &amp; Co-translated Books</span></h2>
+    <div class="book-list">
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/118403542" target="_blank" rel="noopener" aria-label="행복은 뇌 안에">
+          <img loading="lazy" src="images/fb5c46b2f705030ec468bbadb8717f0e.jpg" alt="행복은 뇌 안에 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">행복은 뇌 안에</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공저 (장동선·박보혜·김학진·조지선·조천호)</span><span class="i18n en">Co-authored (Dongseon Chang, Bohye Park, Hackjin Kim, Jiseon Jo, Cheonho Jo)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/118403542" target="_blank" rel="noopener"><span class="i18n ko">행복은 뇌 안에</span><span class="i18n en">Happiness Is in the Brain</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">타인 공감에 지친 이들을 위한 책</span><span class="i18n en">A book for those worn out by empathy</span></p>
+          <p class="book-meta">글항아리 (Geulhangari) · 2023.04</p>
+          <p class="book-desc"><span class="i18n ko">2021년 T&C재단 콘퍼런스를 바탕으로 신경과학, 인지과학, 심리학, 기후과학 전문가 다섯 명이 공감에 대한 오해와 그 중요성을 이야기합니다. 공감의 뇌 메커니즘과 자기중심적 한계, 공감을 키우는 방법, 기후 위기 대응에서 공감의 역할을 다룹니다.</span><span class="i18n en">Based on a 2021 T&amp;C Foundation conference, five experts in neuroscience, cognitive science, psychology, and climate science discuss misconceptions about empathy: its brain mechanisms, self-centered limits, how it can be developed, and its role in the climate crisis.</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/118403542" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/103619327" target="_blank" rel="noopener" aria-label="단 하나의 이론">
+          <img loading="lazy" src="images/4eb0fb974108680c98a1788e5a0784c8.jpg" alt="단 하나의 이론 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">단 하나의 이론</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공저 (윤성철·노명우·김응빈·김학진·김범준·김경일·박한선)</span><span class="i18n en">Co-authored (Seongcheol Yoon, Myungwoo Noh, Eungbin Kim, Hackjin Kim, Beomjun Kim, Kyungil Kim, Hansun Park)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/103619327" target="_blank" rel="noopener"><span class="i18n ko">단 하나의 이론</span><span class="i18n en">The One Theory</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">인류 역사를 관통하는 거대한 유산</span><span class="i18n en">The great legacy running through human history</span></p>
+          <p class="book-meta">알에이치코리아 (RHK) · 2021.09</p>
+          <p class="book-desc"><span class="i18n ko">모든 과학 지식이 사라진다면 다음 세대에 어떤 한 문장을 남겨야 하는가라는 파인만의 질문에서 출발합니다. 천체물리, 사회학, 미생물학, 뇌과학, 통계물리, 인지심리학, 신경인류학 연구자 일곱 명이 각자의 답을 내놓습니다. 저자는 4장(신경과학·심리학)을 집필했습니다.</span><span class="i18n en">Starts from Feynman's question of which single sentence to preserve if all scientific knowledge were lost. Seven scholars across astrophysics, sociology, microbiology, neuroscience, statistical physics, cognitive psychology, and neuroanthropology each give an answer. Dr. Kim wrote Chapter 4 (neuroscience/psychology).</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/103619327" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/64090651" target="_blank" rel="noopener" aria-label="더 알고 싶은 심리학">
+          <img loading="lazy" src="images/72a36ac47c58c379a384c927f048d9bd.jpg" alt="더 알고 싶은 심리학 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">더 알고 싶은 심리학</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공저 (한국심리학회 기획, 심리학자 16인 집필)</span><span class="i18n en">Co-authored (Korean Psychological Association; written by 16 psychology professors)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/64090651" target="_blank" rel="noopener"><span class="i18n ko">더 알고 싶은 심리학</span><span class="i18n en">Psychology, for Those Who Want to Know More</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">심리학을 더 재밌게 공부하는 방법</span><span class="i18n en">A more enjoyable way to study psychology</span></p>
+          <p class="book-meta">학지사 (Hakjisa) · 2018.08</p>
+          <p class="book-desc"><span class="i18n ko">한국심리학회가 기획하고 심리학자 16명이 집필한 대중 심리학서입니다. 지각, 기억, 범죄심리, 광고, 소비자 의사결정 등 16개 주제를 배경지식 없이도 읽을 수 있게 풀어 씁니다.</span><span class="i18n en">A general-audience psychology book commissioned by the Korean Psychological Association and written by 16 psychology professors. Its 16 chapters cover perception, memory, criminal psychology, advertising, and consumer decision-making in a way readers without background can follow.</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/64090651" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/59610848" target="_blank" rel="noopener" aria-label="이타주의자">
+          <img loading="lazy" src="images/79a714d0ff47344b36a4cbd2d7a410ce.jpg" alt="이타주의자 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">이타주의자</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공저 (최정규·이상수·이진우·김준홍·김학진·남창훈·홍성욱)</span><span class="i18n en">Co-authored (Jeongkyu Choi, Sangsu Lee, Jinwoo Lee, Junhong Kim, Hackjin Kim, Changhoon Nam, Sungook Hong)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/59610848" target="_blank" rel="noopener"><span class="i18n ko">이타주의자</span><span class="i18n en">The Altruists</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">사피엔스에서 인공지능까지</span><span class="i18n en">From Sapiens to Artificial Intelligence</span></p>
+          <p class="book-meta">사회평론 (Sahoipyoungnon) · 2018.04</p>
+          <p class="book-desc"><span class="i18n ko">자신을 희생해 남을 돕는 사람은 특별한 존재인가라는 물음에서 출발해, 생명의 기원과 인류 진화, 동서양 철학, 뇌과학, 인공지능까지 여러 분야에서 이타주의를 살펴봅니다. 두산아트센터 인문학 강연을 바탕으로 했으며, 저자는 5장(뇌과학)을 집필했습니다.</span><span class="i18n en">Asks whether people who sacrifice for others are truly special, and explores altruism from the origin of life and human evolution to Eastern and Western philosophy, neuroscience, and AI. Based on a Doosan Art Center humanities lecture series; Dr. Kim wrote Chapter 5 (neuroscience).</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/59610848" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/47687338" target="_blank" rel="noopener" aria-label="인지신경과학 입문 (제3판)">
+          <img loading="lazy" src="images/d0f2029a28fd362725b884ff1c9a14bb.jpg" alt="인지신경과학 입문 (제3판) 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">인지신경과학 입문 (제3판)</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공역 (원저: Jamie Ward / 역: 이동훈·김학진·이도준·조수현)</span><span class="i18n en">Co-translated (Author: Jamie Ward; Translators: Donghoon Lee, Hackjin Kim, Dojoon Lee, Soohyun Cho)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/47687338" target="_blank" rel="noopener"><span class="i18n ko">인지신경과학 입문 (제3판)</span><span class="i18n en">Introduction to Cognitive Neuroscience (3rd ed.)</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">Jamie Ward, <em>Student's Guide to Cognitive Neuroscience</em> 번역</span><span class="i18n en">Translation of Jamie Ward's Student's Guide to Cognitive Neuroscience</span></p>
+          <p class="book-meta">시그마프레스 (Sigma Press) · 2017.09</p>
+          <p class="book-desc"><span class="i18n ko">제이미 워드의 인지신경과학 입문 교재 <em>Student's Guide to Cognitive Neuroscience</em> 제3판의 한국어 번역서입니다. 뇌 전기생리와 뇌영상, 시각, 기억, 언어, 읽기, 실행 기능, 사회·정서 처리 등 인지신경과학 전반을 다룹니다.</span><span class="i18n en">Korean translation of the 3rd edition of Jamie Ward's introductory textbook <em>Student's Guide to Cognitive Neuroscience</em>, covering electrophysiology and brain imaging, vision, memory, language, reading, executive function, and social and emotional processing.</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/47687338" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+      <article class="book-card">
+        <a class="book-cover" href="https://www.yes24.com/product/goods/11164180" target="_blank" rel="noopener" aria-label="뇌로 통하다">
+          <img loading="lazy" src="images/b489e10822b2a9eaaeb0f3abccb47ac2.jpg" alt="뇌로 통하다 표지" onerror="this.parentNode.classList.add('nocover');this.remove();">
+          <span class="book-ph">뇌로 통하다</span>
+        </a>
+        <div class="book-info">
+          <p class="book-role"><span class="i18n ko">공저 (김성일·김채연·성영신 엮음 외 필진)</span><span class="i18n en">Co-authored (edited by Seongil Kim, Chaeyeon Kim, Youngshin Sung; with contributing authors)</span></p>
+          <h3><a href="https://www.yes24.com/product/goods/11164180" target="_blank" rel="noopener"><span class="i18n ko">뇌로 통하다</span><span class="i18n en">Connecting Through the Brain</span></a></h3>
+          <p class="book-sub"><span class="i18n ko">대한민국 대표 심리학자들의 뇌과학 오디세이</span><span class="i18n en">A brain-science odyssey by leading Korean psychologists</span></p>
+          <p class="book-meta">21세기북스 (21st Century Books) · 2013.10</p>
+          <p class="book-desc"><span class="i18n ko">뇌과학과 심리학이 만나는 최신 연구를 일반 독자가 읽을 수 있게 소개합니다. 신경교육, 신경경제학, 신경마케팅, 신경미학 등을 "세계·타인·자신" 세 부로 나누어 다룹니다. 현재 절판 상태입니다.</span><span class="i18n en">Introduces recent research at the intersection of brain science and psychology for general readers, including neuroeducation, neuroeconomics, neuromarketing, and neuroaesthetics, organized into three parts: the world, other people, and the self. Currently out of print.</span></p>
+          <a class="book-link" href="https://www.yes24.com/product/goods/11164180" target="_blank" rel="noopener"><span class="i18n ko">도서 정보 보기 →</span><span class="i18n en">View book details →</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <!-- ===================== GALLERY ===================== -->
   <section class="stage-section" id="sec-gallery" data-section="gallery">
     <p class="kicker i18n ko block" style="font-size:13px;color:var(--ink-soft);margin-bottom:10px;">갤러리</p>
@@ -1326,273 +1582,33 @@
 
     <h2 class="section-h" id="g-conferences"><span class="i18n ko">학회</span><span class="i18n en">Conferences</span></h2>
     <p style="color:var(--ink-soft);font-size:14px;margin-bottom:18px;">
-      <span class="i18n ko">연구실 학회 참가 및 답사 사진들입니다. 시간 순으로 정리되어 있습니다.</span>
-      <span class="i18n en">Photos from lab conference trips, arranged in chronological order.</span>
+      <span class="i18n ko">연구실 학회 참가 및 답사 사진들입니다. 최신순으로 정리되어 있습니다.</span>
+      <span class="i18n en">Photos from lab conference trips, arranged from newest to oldest.</span>
     </p>
 
     <div class="gallery-grid">
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/93321d80527ec395b2d77acda0d6509b.webp" alt="2015 Fall, Seoul National University">
+        <img loading="lazy" src="images/315420990d185278cc224b1f6e9684ba.webp" alt="IAEA 2026">
         <figcaption>
-          <span class="i18n ko">2015년 가을, 서울대학교 방문 학회</span>
-          <span class="i18n en">Fall 2015 — Visiting conference at Seoul National University</span>
+          <span class="i18n ko">2026년 IAEA(International Association of Empirical Aesthetics) 학술대회 — 구두 발표</span>
+          <span class="i18n en">2026 IAEA (International Association of Empirical Aesthetics) Conference — oral presentation</span>
         </figcaption>
       </figure>
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/2beca73e4c96635c3391c8c3ca6d6b18.webp" alt="2016 FLUX Congress, St. Louis">
+        <img loading="lazy" src="images/20e8e0804fdabb17ab35f887ad007520.webp" alt="KSBNS 2026">
         <figcaption>
-          <span class="i18n ko">2016년 FLUX(Developmental Cognitive Neuroscience) 학술대회, 미국 세인트루이스</span>
-          <span class="i18n en">2016 FLUX Congress (Developmental Cognitive Neuroscience), St. Louis, USA</span>
+          <span class="i18n ko">2026년 대한신경과학회(KSBNS) 고등인지분과 통계 워크숍 — 포스터 발표</span>
+          <span class="i18n en">2026 KSBNS (Korean Society for Brain and Neural Sciences) Higher Cognition Statistics Workshop — poster presentation</span>
         </figcaption>
       </figure>
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/316b4883b45f8e026e2b0074ac49f744.webp" alt="2016 KCBP Conference">
+        <img loading="lazy" src="images/e933151a8661e807a8c2412035896746.webp" alt="KSBNS 2026">
         <figcaption>
-          <span class="i18n ko">2016년 1월 21일–23일, 한국인지및생물심리학회 학술대회</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Jan 21–23, 2016</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/3f033da2e6aa4ae8c8d6d30a517c6a05.webp" alt="2016 KCBP Conference">
-        <figcaption>
-          <span class="i18n ko">2016년 1월 21일–23일, 한국인지및생물심리학회 학술대회</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Jan 21–23, 2016</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/1c2cac5c8680dc2e182daa2c58a1b86d.webp" alt="2016 ICCN, Hangzhou">
-        <figcaption>
-          <span class="i18n ko">2016년 ICCN(신경경제학 및 신경경영학 국제학술대회), 중국 항저우 — 저장대학교</span>
-          <span class="i18n en">2016 ICCN (International Conference on Neuroeconomics &amp; Neuromanagement), Hangzhou, China — Zhejiang University</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/57d3b3f99dfc61b43b9699a8443eeacc.webp" alt="2016 ICCN, Hangzhou">
-        <figcaption>
-          <span class="i18n ko">2016년 ICCN 학술대회, 중국 항저우 답사</span>
-          <span class="i18n en">2016 ICCN Conference, Hangzhou, China — during the trip</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/cab50e72ee229eaf883a619f2d186114.webp" alt="2016 ICCN, Hangzhou">
-        <figcaption>
-          <span class="i18n ko">2016년 ICCN 학술대회, 중국 항저우 답사</span>
-          <span class="i18n en">2016 ICCN Conference, Hangzhou, China — during the trip</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/e8d96b35b14ce6bbd58972a60a748376.webp" alt="2017 KCBP Conference, Busan University">
-        <figcaption>
-          <span class="i18n ko">2017년 한국인지및생물심리학회 학술대회, 부산대학교</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Busan University, 2017</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/cd469b385d01d4cc922d32a90d3c0559.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
-        <figcaption>
-          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/183ec6263d7407736ea662574f5cbd97.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
-        <figcaption>
-          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교 — 연구실 단체사진</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018 — lab group photo</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/f8514c2eb9970b5e01e38c10d4d88bb7.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
-        <figcaption>
-          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교 — 답사 중 식사 자리</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018 — a meal together during the trip</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/5ec0949149d89ed0a31c217414ffe24a.webp" alt="2018 OHBM, Singapore">
-        <figcaption>
-          <span class="i18n ko">2018년 OHBM(Organization for Human Brain Mapping) 학술대회, 싱가포르</span>
-          <span class="i18n en">OHBM (Organization for Human Brain Mapping) Annual Meeting, Singapore, 2018</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/5bb6cb4d5a724a34e28224ff5f2068ed.webp" alt="2018 OHBM, Singapore">
-        <figcaption>
-          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 마리나베이 스카이라인</span>
-          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — Marina Bay skyline</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/e42d5e07c097a153b26f232a10d1c9b1.webp" alt="2018 OHBM, Singapore, Merlion">
-        <figcaption>
-          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 센토사섬 머라이언 상</span>
-          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — the Merlion statue, Sentosa Island</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/021b5efe54dab24325651a25c146e4fd.webp" alt="2018 OHBM, Singapore, poster session">
-        <figcaption>
-          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 포스터 발표: "Impression Management and Friend-Evaluation under Social Observation" (Leehyun Yoon, Hackjin Kim)</span>
-          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — poster presentation: "Impression Management and Friend-Evaluation under Social Observation" (Leehyun Yoon, Hackjin Kim)</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/61fc6d9abb898d58031bc858c97eb5a7.webp" alt="2019 KCBP Conference, YongPyong">
-        <figcaption>
-          <span class="i18n ko">2019년 한국인지및생물심리학회 학술대회, 용평</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, YongPyong, 2019</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/42f0e7292ae972e657352ee4d05fb43e.webp" alt="2019 KCBP Conference, YongPyong, ice festival">
-        <figcaption>
-          <span class="i18n ko">2019년 한국인지및생물심리학회 학술대회, 용평 — 빙설제 야경</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, YongPyong, 2019 — the ice sculpture festival at night</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/a1dba1d3ff2efa094f335edd60e16a91.webp" alt="2019 Society for NeuroEconomics, Dublin, Ireland">
-        <figcaption>
-          <span class="i18n ko">2019년 Society for NeuroEconomics 학술대회, 아일랜드 더블린</span>
-          <span class="i18n en">Society for NeuroEconomics (SNE) Annual Meeting, Dublin, Ireland, 2019</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/494105f2dc1e506b107539ce6e44d569.webp" alt="2019 Society for NeuroEconomics, Dublin, Ireland">
-        <figcaption>
-          <span class="i18n ko">2019년 Society for NeuroEconomics 학술대회, 아일랜드 더블린 — 단체사진 모음</span>
-          <span class="i18n en">Society for NeuroEconomics (SNE) Annual Meeting, Dublin, Ireland, 2019 — group photos</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/f35518f8ef71b090b89b25b84b963987.webp" alt="2023 KCBP Conference, Yonsei University">
-        <figcaption>
-          <span class="i18n ko">2023년 한국인지및생물심리학회 학술대회, 연세대학교</span>
-          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Yonsei University, 2023</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/d63601357f6614bed3d5cad5f23749e9.webp" alt="2023 SANS, Santa Barbara">
-        <figcaption>
-          <span class="i18n ko">2023년 Social &amp; Affective Neuroscience Society(SANS) 학술대회, 미국 산타바바라</span>
-          <span class="i18n en">Social &amp; Affective Neuroscience Society (SANS) Annual Meeting, Santa Barbara, USA, 2023</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/21a3ee7b7b881bf7a71ede71645262e7.webp" alt="2023 SANS, Santa Barbara, poster session">
-        <figcaption>
-          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 포스터 발표 모음</span>
-          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — poster presentations</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/bd89ad8b25b9e8219009c2db9abdb737.webp" alt="2023 SANS, Santa Barbara, dinner">
-        <figcaption>
-          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 답사 중 저녁 식사 자리</span>
-          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — dinner together during the trip</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/fcb112a89d9b0289e553d50c3b67f7ab.webp" alt="2023 SANS, Santa Barbara, poster session">
-        <figcaption>
-          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 포스터 발표</span>
-          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — poster presentation</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/3995c6654a81401e003d64e3f3e921e0.webp" alt="2024 KCBP Conference, Seoul National University">
-        <figcaption>
-          <span class="i18n ko">2024년 제61회 한국인지및생물심리학회 학술대회, 서울대학교</span>
-          <span class="i18n en">61st Korean Cognitive and Biological Psychology Conference, Seoul National University, 2024</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/53aea14245a96f6c82e4305e1b27f618.webp" alt="2024 KCBP Conference, Seoul National University, poster session">
-        <figcaption>
-          <span class="i18n ko">2024년 제61회 한국인지및생물심리학회 학술대회, 서울대학교 — 포스터 발표</span>
-          <span class="i18n en">61st Korean Cognitive and Biological Psychology Conference, Seoul National University, 2024 — poster presentation</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/ce3ec18d1d3763ad5b0d41813e1efbd3.webp" alt="2024 Society for Affective Science, New Orleans">
-        <figcaption>
-          <span class="i18n ko">2024년 Society for Affective Science(SAS) 학술대회, 미국 뉴올리언스</span>
-          <span class="i18n en">Society for Affective Science (SAS) Annual Meeting, New Orleans, LA, USA, 2024</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/bfaced32c6eabb94925d6dafca334cb0.webp" alt="OHBM 2024, Seoul">
-        <figcaption>
-          <span class="i18n ko">2024년 OHBM(Organization for Human Brain Mapping) 학술대회, 대한민국 서울</span>
-          <span class="i18n en">OHBM (Organization for Human Brain Mapping) Annual Meeting, Seoul, Korea, 2024</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/3aa5128f69aaba6e4cb658837e140750.webp" alt="2024 Korean Society for Cognitive Science">
-        <figcaption>
-          <span class="i18n ko">2024년 한국인지과학회 학술대회 "Mind, Brain &amp; Data"</span>
-          <span class="i18n en">2024 Korean Society for Cognitive Science Conference, "Mind, Brain &amp; Data"</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/122f5286fe28e87d4b3d95d12f782043.webp" alt="2025 KCBP Conference, GIST">
-        <figcaption>
-          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, 광주과학기술원(GIST)</span>
-          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/b35df53cebbb5e5427613f2c8c194578.webp" alt="2025 KCBP Conference, GIST, talk">
-        <figcaption>
-          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 구두 발표</span>
-          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — oral presentation</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/63dc4df3a352153bc9fbb02fc1f48461.webp" alt="2025 KCBP Conference, GIST, talk">
-        <figcaption>
-          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 구두 발표</span>
-          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — oral presentation</span>
-        </figcaption>
-      </figure>
-
-      <figure class="gallery-item">
-        <img loading="lazy" src="images/896103eec8c13462c51e154e9317d150.webp" alt="2025 KCBP Conference, GIST, poster session">
-        <figcaption>
-          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 포스터 발표</span>
-          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — poster presentation</span>
+          <span class="i18n ko">2026년 대한신경과학회(KSBNS) 고등인지분과 통계 워크숍</span>
+          <span class="i18n en">2026 KSBNS (Korean Society for Brain and Neural Sciences) Higher Cognition Statistics Workshop</span>
         </figcaption>
       </figure>
 
@@ -1629,26 +1645,266 @@
       </figure>
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/20e8e0804fdabb17ab35f887ad007520.webp" alt="KSBNS 2026">
+        <img loading="lazy" src="images/122f5286fe28e87d4b3d95d12f782043.webp" alt="2025 KCBP Conference, GIST">
         <figcaption>
-          <span class="i18n ko">2026년 대한신경과학회(KSBNS) 고등인지분과 통계 워크숍 — 포스터 발표</span>
-          <span class="i18n en">2026 KSBNS (Korean Society for Brain and Neural Sciences) Higher Cognition Statistics Workshop — poster presentation</span>
+          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, 광주과학기술원(GIST)</span>
+          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025</span>
         </figcaption>
       </figure>
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/e933151a8661e807a8c2412035896746.webp" alt="KSBNS 2026">
+        <img loading="lazy" src="images/b35df53cebbb5e5427613f2c8c194578.webp" alt="2025 KCBP Conference, GIST, talk">
         <figcaption>
-          <span class="i18n ko">2026년 대한신경과학회(KSBNS) 고등인지분과 통계 워크숍</span>
-          <span class="i18n en">2026 KSBNS (Korean Society for Brain and Neural Sciences) Higher Cognition Statistics Workshop</span>
+          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 구두 발표</span>
+          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — oral presentation</span>
         </figcaption>
       </figure>
 
       <figure class="gallery-item">
-        <img loading="lazy" src="images/315420990d185278cc224b1f6e9684ba.webp" alt="IAEA 2026">
+        <img loading="lazy" src="images/63dc4df3a352153bc9fbb02fc1f48461.webp" alt="2025 KCBP Conference, GIST, talk">
         <figcaption>
-          <span class="i18n ko">2026년 IAEA(International Association of Empirical Aesthetics) 학술대회 — 구두 발표</span>
-          <span class="i18n en">2026 IAEA (International Association of Empirical Aesthetics) Conference — oral presentation</span>
+          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 구두 발표</span>
+          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — oral presentation</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/896103eec8c13462c51e154e9317d150.webp" alt="2025 KCBP Conference, GIST, poster session">
+        <figcaption>
+          <span class="i18n ko">2025년 제62회 한국인지및생물심리학회 학술대회, GIST — 포스터 발표</span>
+          <span class="i18n en">62nd Korean Cognitive and Biological Psychology Conference, GIST, 2025 — poster presentation</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/3aa5128f69aaba6e4cb658837e140750.webp" alt="2024 Korean Society for Cognitive Science">
+        <figcaption>
+          <span class="i18n ko">2024년 한국인지과학회 학술대회 "Mind, Brain &amp; Data"</span>
+          <span class="i18n en">2024 Korean Society for Cognitive Science Conference, "Mind, Brain &amp; Data"</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/bfaced32c6eabb94925d6dafca334cb0.webp" alt="OHBM 2024, Seoul">
+        <figcaption>
+          <span class="i18n ko">2024년 OHBM(Organization for Human Brain Mapping) 학술대회, 대한민국 서울</span>
+          <span class="i18n en">OHBM (Organization for Human Brain Mapping) Annual Meeting, Seoul, Korea, 2024</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/ce3ec18d1d3763ad5b0d41813e1efbd3.webp" alt="2024 Society for Affective Science, New Orleans">
+        <figcaption>
+          <span class="i18n ko">2024년 Society for Affective Science(SAS) 학술대회, 미국 뉴올리언스</span>
+          <span class="i18n en">Society for Affective Science (SAS) Annual Meeting, New Orleans, LA, USA, 2024</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/3995c6654a81401e003d64e3f3e921e0.webp" alt="2024 KCBP Conference, Seoul National University">
+        <figcaption>
+          <span class="i18n ko">2024년 제61회 한국인지및생물심리학회 학술대회, 서울대학교</span>
+          <span class="i18n en">61st Korean Cognitive and Biological Psychology Conference, Seoul National University, 2024</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/53aea14245a96f6c82e4305e1b27f618.webp" alt="2024 KCBP Conference, Seoul National University, poster session">
+        <figcaption>
+          <span class="i18n ko">2024년 제61회 한국인지및생물심리학회 학술대회, 서울대학교 — 포스터 발표</span>
+          <span class="i18n en">61st Korean Cognitive and Biological Psychology Conference, Seoul National University, 2024 — poster presentation</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/d63601357f6614bed3d5cad5f23749e9.webp" alt="2023 SANS, Santa Barbara">
+        <figcaption>
+          <span class="i18n ko">2023년 Social &amp; Affective Neuroscience Society(SANS) 학술대회, 미국 산타바바라</span>
+          <span class="i18n en">Social &amp; Affective Neuroscience Society (SANS) Annual Meeting, Santa Barbara, USA, 2023</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/21a3ee7b7b881bf7a71ede71645262e7.webp" alt="2023 SANS, Santa Barbara, poster session">
+        <figcaption>
+          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 포스터 발표 모음</span>
+          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — poster presentations</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/bd89ad8b25b9e8219009c2db9abdb737.webp" alt="2023 SANS, Santa Barbara, dinner">
+        <figcaption>
+          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 답사 중 저녁 식사 자리</span>
+          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — dinner together during the trip</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/fcb112a89d9b0289e553d50c3b67f7ab.webp" alt="2023 SANS, Santa Barbara, poster session">
+        <figcaption>
+          <span class="i18n ko">2023년 SANS 학술대회, 산타바바라 — 포스터 발표</span>
+          <span class="i18n en">SANS Annual Meeting, Santa Barbara, 2023 — poster presentation</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/f35518f8ef71b090b89b25b84b963987.webp" alt="2023 KCBP Conference, Yonsei University">
+        <figcaption>
+          <span class="i18n ko">2023년 한국인지및생물심리학회 학술대회, 연세대학교</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Yonsei University, 2023</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/a1dba1d3ff2efa094f335edd60e16a91.webp" alt="2019 Society for NeuroEconomics, Dublin, Ireland">
+        <figcaption>
+          <span class="i18n ko">2019년 Society for NeuroEconomics 학술대회, 아일랜드 더블린</span>
+          <span class="i18n en">Society for NeuroEconomics (SNE) Annual Meeting, Dublin, Ireland, 2019</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/494105f2dc1e506b107539ce6e44d569.webp" alt="2019 Society for NeuroEconomics, Dublin, Ireland">
+        <figcaption>
+          <span class="i18n ko">2019년 Society for NeuroEconomics 학술대회, 아일랜드 더블린 — 단체사진 모음</span>
+          <span class="i18n en">Society for NeuroEconomics (SNE) Annual Meeting, Dublin, Ireland, 2019 — group photos</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/61fc6d9abb898d58031bc858c97eb5a7.webp" alt="2019 KCBP Conference, YongPyong">
+        <figcaption>
+          <span class="i18n ko">2019년 한국인지및생물심리학회 학술대회, 용평</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, YongPyong, 2019</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/42f0e7292ae972e657352ee4d05fb43e.webp" alt="2019 KCBP Conference, YongPyong, ice festival">
+        <figcaption>
+          <span class="i18n ko">2019년 한국인지및생물심리학회 학술대회, 용평 — 빙설제 야경</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, YongPyong, 2019 — the ice sculpture festival at night</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/5ec0949149d89ed0a31c217414ffe24a.webp" alt="2018 OHBM, Singapore">
+        <figcaption>
+          <span class="i18n ko">2018년 OHBM(Organization for Human Brain Mapping) 학술대회, 싱가포르</span>
+          <span class="i18n en">OHBM (Organization for Human Brain Mapping) Annual Meeting, Singapore, 2018</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/5bb6cb4d5a724a34e28224ff5f2068ed.webp" alt="2018 OHBM, Singapore">
+        <figcaption>
+          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 마리나베이 스카이라인</span>
+          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — Marina Bay skyline</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/e42d5e07c097a153b26f232a10d1c9b1.webp" alt="2018 OHBM, Singapore, Merlion">
+        <figcaption>
+          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 센토사섬 머라이언 상</span>
+          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — the Merlion statue, Sentosa Island</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/021b5efe54dab24325651a25c146e4fd.webp" alt="2018 OHBM, Singapore, poster session">
+        <figcaption>
+          <span class="i18n ko">2018년 OHBM 학술대회, 싱가포르 — 포스터 발표: "Impression Management and Friend-Evaluation under Social Observation" (Leehyun Yoon, Hackjin Kim)</span>
+          <span class="i18n en">OHBM Annual Meeting, Singapore, 2018 — poster presentation: "Impression Management and Friend-Evaluation under Social Observation" (Leehyun Yoon, Hackjin Kim)</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/cd469b385d01d4cc922d32a90d3c0559.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
+        <figcaption>
+          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/183ec6263d7407736ea662574f5cbd97.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
+        <figcaption>
+          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교 — 연구실 단체사진</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018 — lab group photo</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/f8514c2eb9970b5e01e38c10d4d88bb7.webp" alt="2018 KCBP Conference, Sungkyunkwan University">
+        <figcaption>
+          <span class="i18n ko">2018년 한국인지및생물심리학회 학술대회, 성균관대학교 — 답사 중 식사 자리</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Sungkyunkwan University, 2018 — a meal together during the trip</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/e8d96b35b14ce6bbd58972a60a748376.webp" alt="2017 KCBP Conference, Busan University">
+        <figcaption>
+          <span class="i18n ko">2017년 한국인지및생물심리학회 학술대회, 부산대학교</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Busan University, 2017</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/1c2cac5c8680dc2e182daa2c58a1b86d.webp" alt="2016 ICCN, Hangzhou">
+        <figcaption>
+          <span class="i18n ko">2016년 ICCN(신경경제학 및 신경경영학 국제학술대회), 중국 항저우 — 저장대학교</span>
+          <span class="i18n en">2016 ICCN (International Conference on Neuroeconomics &amp; Neuromanagement), Hangzhou, China — Zhejiang University</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/57d3b3f99dfc61b43b9699a8443eeacc.webp" alt="2016 ICCN, Hangzhou">
+        <figcaption>
+          <span class="i18n ko">2016년 ICCN 학술대회, 중국 항저우 답사</span>
+          <span class="i18n en">2016 ICCN Conference, Hangzhou, China — during the trip</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/cab50e72ee229eaf883a619f2d186114.webp" alt="2016 ICCN, Hangzhou">
+        <figcaption>
+          <span class="i18n ko">2016년 ICCN 학술대회, 중국 항저우 답사</span>
+          <span class="i18n en">2016 ICCN Conference, Hangzhou, China — during the trip</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/316b4883b45f8e026e2b0074ac49f744.webp" alt="2016 KCBP Conference">
+        <figcaption>
+          <span class="i18n ko">2016년 1월 21일–23일, 한국인지및생물심리학회 학술대회</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Jan 21–23, 2016</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/3f033da2e6aa4ae8c8d6d30a517c6a05.webp" alt="2016 KCBP Conference">
+        <figcaption>
+          <span class="i18n ko">2016년 1월 21일–23일, 한국인지및생물심리학회 학술대회</span>
+          <span class="i18n en">Korean Cognitive and Biological Psychology Conference, Jan 21–23, 2016</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/2beca73e4c96635c3391c8c3ca6d6b18.webp" alt="2016 FLUX Congress, St. Louis">
+        <figcaption>
+          <span class="i18n ko">2016년 FLUX(Developmental Cognitive Neuroscience) 학술대회, 미국 세인트루이스</span>
+          <span class="i18n en">2016 FLUX Congress (Developmental Cognitive Neuroscience), St. Louis, USA</span>
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img loading="lazy" src="images/93321d80527ec395b2d77acda0d6509b.webp" alt="2015 Fall, Seoul National University">
+        <figcaption>
+          <span class="i18n ko">2015년 가을, 서울대학교 방문 학회</span>
+          <span class="i18n en">Fall 2015 — Visiting conference at Seoul National University</span>
         </figcaption>
       </figure>
 
