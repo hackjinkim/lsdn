@@ -1944,10 +1944,15 @@
     });
   }
 
-  function activate(target, anchor){
+  function activate(target, anchor, fromHistory){
     sections.forEach(function(s){ s.classList.toggle('active', s.dataset.section === target); });
     setCurrent(target);
-    if (history.replaceState) history.replaceState(null, '', '#' + target);
+    try{
+      if (!fromHistory && location.hash !== '#' + target){
+        if (location.hash === '' && target === 'home') history.replaceState(null, '', '#home');
+        else history.pushState(null, '', '#' + target);
+      }
+    }catch(e){}
     drawer.classList.remove('open');
     menuToggle.setAttribute('aria-expanded','false');
     if (anchor){
@@ -2006,10 +2011,15 @@
   }catch(e){}
 
   var initial = (location.hash || '').replace('#','');
-  var valid = ['home','research','publications','people','news'];
-  activate(valid.indexOf(initial) !== -1 ? initial : 'home');
+  var valid = ['home','research','publications','people','books','news','gallery'];
+  activate(valid.indexOf(initial) !== -1 ? initial : 'home', null, true);
+  window.addEventListener('popstate', function(){
+    var t = (location.hash || '').replace('#','');
+    activate(valid.indexOf(t) !== -1 ? t : 'home', null, true);
+  });
 })();
 </script>
 
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1a90e5cb8e1b40f3ab765067e360eb7c"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
