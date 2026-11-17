@@ -209,6 +209,19 @@
   .book-link:hover{text-decoration:underline;}
   @media (max-width:560px){.book-card{grid-template-columns:1fr;}.book-cover{width:130px;margin:0 auto;}}
 
+  /* ---------- Lightbox ---------- */
+  .gallery-item img, .study-visual.has-figure img, .member-photo, .director-photo img{cursor:zoom-in;}
+  .lb{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;flex-direction:column;padding:48px 16px 24px;}
+  .lb.open{display:flex;}
+  .lb img{max-width:100%;max-height:calc(100vh - 120px);object-fit:contain;border-radius:4px;background:#fff;cursor:zoom-out;}
+  .lb-cap{color:#eee;font-size:13.5px;line-height:1.5;margin-top:12px;max-width:760px;text-align:center;}
+  .lb-btn{position:absolute;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:50%;width:44px;height:44px;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .lb-btn:hover{background:rgba(255,255,255,.28);}
+  .lb-close{top:14px;right:14px;}
+  .lb-prev{left:14px;top:50%;transform:translateY(-50%);}
+  .lb-next{right:14px;top:50%;transform:translateY(-50%);}
+  @media (max-width:560px){.lb-prev,.lb-next{top:auto;bottom:14px;transform:none;}}
+
   /* ---------- Publications ---------- */
   .pub-toolbar{display:flex;justify-content:flex-end;margin-bottom:14px;}
   .pub-toolbar button{all:unset;cursor:pointer;font-size:13px;color:var(--crimson);font-weight:500;}
@@ -2017,6 +2030,64 @@
     var t = (location.hash || '').replace('#','');
     activate(valid.indexOf(t) !== -1 ? t : 'home', null, true);
   });
+
+  /* ---- Image lightbox ---- */
+  (function(){
+    var SEL = ".gallery-item img, .study-visual.has-figure img, .member-photo, .director-photo img";
+    var lb = document.createElement('div');
+    lb.className = 'lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
+    lb.innerHTML = '<button class="lb-btn lb-close" aria-label="Close">&times;</button><button class="lb-btn lb-prev" aria-label="Previous">&#8249;</button><button class="lb-btn lb-next" aria-label="Next">&#8250;</button><img alt=""><div class="lb-cap"></div>';
+    document.body.appendChild(lb);
+    var big = lb.querySelector('img'), cap = lb.querySelector('.lb-cap');
+    var list = [], idx = 0;
+    function imgOf(el){ return el.tagName === 'IMG' ? el : el.querySelector('img'); }
+    function captionOf(img){
+      var f = img.closest('figure');
+      var c = f && f.querySelector('figcaption');
+      if (c){
+        var lang = document.documentElement.getAttribute('data-lang') || 'ko';
+        var t = c.querySelector('.i18n.' + lang);
+        return (t || c).textContent.trim();
+      }
+      return img.getAttribute('alt') || '';
+    }
+    function show(i){
+      idx = (i + list.length) % list.length;
+      var im = list[idx];
+      big.src = im.currentSrc || im.src;
+      big.alt = im.alt || '';
+      cap.textContent = captionOf(im);
+      var multi = list.length > 1;
+      lb.querySelector('.lb-prev').style.display = multi ? '' : 'none';
+      lb.querySelector('.lb-next').style.display = multi ? '' : 'none';
+    }
+    function close(){ lb.classList.remove('open'); big.removeAttribute('src'); document.body.style.overflow = ''; }
+    document.addEventListener('click', function(e){
+      if (lb.contains(e.target)){
+        if (e.target.closest('.lb-prev')) show(idx - 1);
+        else if (e.target.closest('.lb-next')) show(idx + 1);
+        else if (!e.target.closest('.lb-cap')) close();
+        return;
+      }
+      var hit = e.target.closest(SEL);
+      if (!hit) return;
+      var img = imgOf(hit);
+      if (!img || !img.getAttribute('src')) return;
+      var sec = img.closest('.stage-section') || document;
+      list = Array.prototype.map.call(sec.querySelectorAll(SEL), imgOf).filter(Boolean);
+      var i = list.indexOf(img);
+      if (i < 0){ list = [img]; i = 0; }
+      show(i);
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.addEventListener('keydown', function(e){
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  })();
 })();
 </script>
 
